@@ -1,4 +1,4 @@
-package xyz.sangcomz.chameleon
+package xyz.sangcomz.chameleonsample
 
 import org.junit.Test
 

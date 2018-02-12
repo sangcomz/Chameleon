@@ -1,4 +1,4 @@
-package xyz.sangcomz.chameleon
+package xyz.sangcomz.chameleonsample
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
