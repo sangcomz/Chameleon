@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chameleon</string>
+    <string name="msg_empty">Where is chameleon?</string>
 </resources>
