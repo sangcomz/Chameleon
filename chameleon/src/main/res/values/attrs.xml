@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Chameleon">
+
+        <attr name="emptyText" format="string" />
+        <attr name="emptyTextColor" format="color" />
+        <attr name="emptyTextSize" format="dimension" />
+        <attr name="emptyDrawable" format="reference" />
+
+        <attr name="errorText" format="string" />
+        <attr name="errorTextColor" format="color" />
+        <attr name="errorTextSize" format="dimension" />
+        <attr name="errorDrawable" format="reference" />
+
+        <attr name="retryText" format="string" />
+        <attr name="retryTextColor" format="color" />
+        <attr name="retryTextSize" format="dimension" />
+
+        <attr name="progressDrawable" format="reference" />
+        <attr name="isLargeProgress" format="boolean" />
+
+
+        <!--<attr name="sectionBackgroundColor" format="color" />-->
+        <!--<attr name="timeLineWidth" format="dimension" />-->
+        <!--<attr name="isSticky" format="boolean" />-->
+    </declare-styleable>
+</resources>

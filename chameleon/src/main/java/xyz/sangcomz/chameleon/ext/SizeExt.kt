@@ -1,4 +1,4 @@
-package xyz.sangcomz.stickytimelineview.ext
+package xyz.sangcomz.chameleon.ext
 
 import android.content.Context
 

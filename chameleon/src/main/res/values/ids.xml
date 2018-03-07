@@ -3,4 +3,5 @@
     <item name="tv_state" type="id" />
     <item name="iv_state" type="id" />
     <item name="pb_state" type="id" />
+    <item name="bt_state" type="id" />
 </resources>

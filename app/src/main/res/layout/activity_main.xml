@@ -5,10 +5,12 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:isLargeProgress="true"
+    app:progressDrawable="@drawable/drawable_progress"
     tools:context="xyz.sangcomz.chameleonsample.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </xyz.sangcomz.chameleon.Chameleon>
