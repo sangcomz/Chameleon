@@ -2,6 +2,7 @@ package xyz.sangcomz.chameleon
 
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
 import android.support.v4.content.ContextCompat
@@ -111,6 +112,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         constraintSet.addToVerticalChain(R.id.bt_state,
                 R.id.tv_state,
                 ConstraintLayout.LayoutParams.PARENT_ID)
+
         constraintSet.applyTo(this)
     }
 
@@ -130,7 +132,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateImageViewView() {
-        val padding = 4.DP(context).toInt()
+        val padding = 8.DP(context).toInt()
         stateImageView = AppCompatImageView(context)
         stateImageView?.apply {
             id = R.id.iv_state
@@ -157,9 +159,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setPadding(padding * 4, padding, padding * 4, padding)
             maxLines = 1
             ellipsize = TextUtils.TruncateAt.END
-            textSize = context.resources.getDimension(R.dimen.default_text_size)
-            TextViewCompat.setAutoSizeTextTypeWithDefaults(this,
-                    TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
             visibility = View.GONE
         }
         val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
@@ -205,7 +204,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             textSize = attr.retryTextSize
             maxLines = 1
             ellipsize = TextUtils.TruncateAt.END
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 24f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             TextViewCompat.setAutoSizeTextTypeWithDefaults(this,
                     TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
             visibility = View.GONE
@@ -232,6 +231,11 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 stateTextView?.visibility = View.VISIBLE
                 stateProgressBar?.visibility = View.GONE
                 stateRetryButton?.visibility = View.VISIBLE
+
+                chameleonAttr?.let {
+                    setStateImageView(it.errorDrawable ?: R.drawable.ic_error.getDrawable(context))
+                    setStateTextView(it.errorText, it.errorTextSize, it.errorTextColor)
+                }
             }
             STATE.LOADING -> {
                 stateContentView?.visibility = View.GONE
@@ -246,11 +250,25 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 stateTextView?.visibility = View.VISIBLE
                 stateProgressBar?.visibility = View.GONE
                 stateRetryButton?.visibility = View.GONE
+
+                chameleonAttr?.let {
+                    setStateImageView(it.emptyDrawable ?: R.drawable.ic_empty.getDrawable(context))
+                    setStateTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor)
+                }
+
             }
         }
     }
 
-    private fun setStateImageView() {
-        stateImageView?.setImageDrawable(chameleonAttr?.emptyDrawable)
+    private fun setStateImageView(drawable: Drawable?) {
+        stateImageView?.setImageDrawable(drawable)
+    }
+
+    private fun setStateTextView(content: String, size: Float, color: Int) {
+        stateTextView?.apply {
+            text = content
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
+            setTextColor(color)
+        }
     }
 }

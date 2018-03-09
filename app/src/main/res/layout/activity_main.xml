@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     app:isLargeProgress="true"
     app:progressDrawable="@drawable/drawable_progress"
+    app:emptyDrawable="@drawable/ic_empty"
+    app:errorDrawable="@drawable/ic_error"
     tools:context="xyz.sangcomz.chameleonsample.MainActivity">
 
     <android.support.v7.widget.RecyclerView
