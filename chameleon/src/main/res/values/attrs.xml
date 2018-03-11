@@ -5,16 +5,29 @@
         <attr name="emptyText" format="string" />
         <attr name="emptyTextColor" format="color" />
         <attr name="emptyTextSize" format="dimension" />
+        <attr name="emptySubText" format="string" />
+        <attr name="emptySubTextColor" format="color" />
+        <attr name="emptySubTextSize" format="dimension" />
         <attr name="emptyDrawable" format="reference" />
+        <attr name="emptyButtonText" format="string" />
+        <attr name="emptyButtonTextColor" format="color" />
+        <attr name="emptyButtonTextSize" format="dimension" />
+        <attr name="emptyButtonBackgroundColor" format="color" />
+        <attr name="useEmptyButton" format="boolean" />
 
         <attr name="errorText" format="string" />
         <attr name="errorTextColor" format="color" />
         <attr name="errorTextSize" format="dimension" />
+        <attr name="errorSubText" format="string" />
+        <attr name="errorSubTextColor" format="color" />
+        <attr name="errorSubTextSize" format="dimension" />
         <attr name="errorDrawable" format="reference" />
 
-        <attr name="retryText" format="string" />
-        <attr name="retryTextColor" format="color" />
-        <attr name="retryTextSize" format="dimension" />
+        <attr name="errorButtonText" format="string" />
+        <attr name="errorButtonTextColor" format="color" />
+        <attr name="errorButtonTextSize" format="dimension" />
+        <attr name="errorButtonBackgroundColor" format="color" />
+        <attr name="useErrorButton" format="boolean" />
 
         <attr name="progressDrawable" format="reference" />
         <attr name="isLargeProgress" format="boolean" />
