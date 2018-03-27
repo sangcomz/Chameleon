@@ -6,7 +6,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion gradle.compileSdk
-    buildToolsVersion gradle.buildTools
     defaultConfig {
         applicationId "xyz.sangcomz.chameleonsample"
         minSdkVersion gradle.minSdk
@@ -28,6 +27,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_version"
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

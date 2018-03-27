@@ -15,7 +15,6 @@
     app:errorButtonBackgroundColor="@color/colorPrimary"
     app:errorButtonText="Retry"
     app:errorButtonTextColor="#ffffff"
-    app:errorButtonTextSize="14sp"
     app:errorDrawable="@drawable/ic_error"
     app:errorSubText="@string/sub_error"
     app:errorText="@string/error"
@@ -26,6 +25,7 @@
     tools:context="xyz.sangcomz.chameleonsample.MainActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_main_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

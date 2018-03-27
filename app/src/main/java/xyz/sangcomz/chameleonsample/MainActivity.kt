@@ -2,6 +2,8 @@ package xyz.sangcomz.chameleonsample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -16,6 +18,14 @@ class MainActivity : AppCompatActivity() {
         root.showState(Chameleon.STATE.LOADING)
         root.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
         root.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
+
+        setChameleonList()
+    }
+
+    private fun setChameleonList() {
+        rv_main_list.adapter = ChameleonAdapter(getChameleons())
+        rv_main_list.layoutManager = LinearLayoutManager(this)
+        rv_main_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
