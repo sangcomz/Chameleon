@@ -88,14 +88,14 @@ chameleon.showState(Chameleon.STATE.ERROR)
 |     emptyButtonTextSize    | empty view Change button text size        |         24sp        |
 | emptyButtonBackgroundColor | empty view Change button background color |       #b7b7b7       |
 |       useEmptyButton       | Change whether to use empty view Button   |        false        |
-|          errorText         | error view Change text                    |        error        |
+|          errorText         | error view Change text                    |        "error"      |
 |       errorTextColor       | error view Change text color              |       #808080       |
 |        errorTextSize       | error view Change text size               |         24sp        |
-|        errorSubText        | error view Change sub text                |    error content    |
+|        errorSubText        | error view Change sub text                |    "error content"  |
 |      errorSubTextColor     | error view Change sub text color          |       #b7b7b7       |
 |      errorSubTextSize      | error view Change sub text size           |         16sp        |
 |        errorDrawable       | error view Change drawable                | R.drawable.ic_error |
-|       errorButtonText      | error view Change button text             |        retry        |
+|       errorButtonText      | error view Change button text             |        "retry"      |
 |    errorButtonTextColor    | error view Change button text color       |       #808080       |
 |     errorButtonTextSize    | error view Change button text size        |         24sp        |
 | errorButtonBackgroundColor | error view Change button background color |       #808080       |
