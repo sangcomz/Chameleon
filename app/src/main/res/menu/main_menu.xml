@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group">
+
+        <item
+            android:id="@+id/menu_content"
+            android:title="@string/content" />
+
+        <item
+            android:id="@+id/menu_loading"
+            android:title="@string/loading" />
+
+        <item
+            android:id="@+id/menu_error"
+            android:title="@string/error" />
+
+        <item
+            android:id="@+id/menu_empty"
+            android:title="@string/empty" />
+
+
+    </group>
+
+</menu>
