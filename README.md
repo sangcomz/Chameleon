@@ -1,6 +1,6 @@
-# Chameleoen
 
-<img src="/pic/logo.png">
+# Chameleoen <img src="/pic/logo.png" width = 5%>
+
 
 Chameleoen deals with the Status of RecyclerView.
 
