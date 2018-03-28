@@ -1,6 +1,5 @@
 package xyz.sangcomz.chameleonsample
 
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
@@ -12,10 +11,17 @@ import com.squareup.picasso.Picasso
 /**
  * Created by sangcomz on 27/03/2018.
  */
-class ChameleonAdapter(private val chameleonList: List<Chameleon>) : RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
+class ChameleonAdapter : RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
+    private var chameleonList: List<Chameleon> = arrayListOf()
+
+    fun setChameleonList(chameleonList: List<Chameleon>) {
+        this.chameleonList = chameleonList
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-                LayoutInflater.from(parent.context).inflate(R.layout.item_chamelon, parent ,false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_chamelon, parent, false)
         )
     }
 

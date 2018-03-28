@@ -64,7 +64,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                         ?: R.drawable.ic_empty.getDrawable(context),
                                 it.getString(R.styleable.Chameleon_emptyButtonText) ?: "error",
                                 it.getColor(R.styleable.Chameleon_emptyButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
-                                it.getDimension(R.styleable.Chameleon_emptyTextSize, context.resources.getDimension(R.dimen.title_text_size)),
+                                it.getDimension(R.styleable.Chameleon_emptyButtonTextSize, context.resources.getDimension(R.dimen.title_text_size)),
                                 it.getColor(R.styleable.Chameleon_emptyButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorSubText)),
                                 it.getBoolean(R.styleable.Chameleon_useEmptyButton, false),
                                 it.getString(R.styleable.Chameleon_errorText) ?: "error",
@@ -265,7 +265,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 setViewVisibility(View.VISIBLE)
             }
             STATE.ERROR -> {
-
                 chameleonAttr?.let {
                     setStateImageView(it.errorDrawable ?: R.drawable.ic_error.getDrawable(context))
                     setStateTitleTextView(it.errorText, it.errorTextSize, it.errorTextColor)

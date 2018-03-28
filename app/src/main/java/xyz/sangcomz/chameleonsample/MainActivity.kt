@@ -7,25 +7,39 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import xyz.sangcomz.chameleon.Chameleon
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        root.showState(Chameleon.STATE.LOADING)
         root.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
         root.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
-
         setChameleonList()
     }
 
     private fun setChameleonList() {
-        rv_main_list.adapter = ChameleonAdapter(getChameleons())
+        root.showState(Chameleon.STATE.LOADING)
+        rv_main_list.adapter = ChameleonAdapter()
         rv_main_list.layoutManager = LinearLayoutManager(this)
         rv_main_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        getChameleons()
+                .delay(3000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            (rv_main_list.adapter as? ChameleonAdapter)?.setChameleonList(it)
+                            root.showState(Chameleon.STATE.CONTENT)
+                        },
+                        {
+                            root.showState(Chameleon.STATE.ERROR)
+                        })
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
