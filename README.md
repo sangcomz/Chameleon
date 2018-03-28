@@ -74,7 +74,7 @@ chameleon.showState(Chameleon.STATE.ERROR)
 
 #### attribute
 
-|         Method Name        | Description                               |    Default Value    |
+|      Attribute Name        | Description                               |    Default Value    |
 |:--------------------------:|-------------------------------------------|:-------------------:|
 |          emptyText         | empty view Change text                    |       "empty"       |
 |       emptyTextColor       | empty view Change text color              |       #808080       |
