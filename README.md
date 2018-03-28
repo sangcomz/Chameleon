@@ -1,21 +1,107 @@
 
 # Chameleoen 
 
-<img src="/pic/logo.png" width = 20%>
+
+<img src="/pic/logo.png" width = 20%> 
+
+[![](https://jitpack.io/v/sangcomz/chameleon.svg)](https://jitpack.io/#sangcomz/chameleon)
+
 Chameleoen deals with the Status of RecyclerView.
 
 ## How to Use
 
 ### Gradle
 ```groovy
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+
+    dependencies {
+        compile 'com.github.sangcomz:Chameleon:v0.0.1'
+    }
 ```
 ### Usage
+```xml
+<xyz.sangcomz.chameleon.Chameleon xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:emptyButtonBackgroundColor="@color/colorPrimary"
+    app:emptyButtonText="+Add Chameleon"
+    app:emptyButtonTextColor="#ffffff"
+    app:emptyButtonTextSize="12sp"
+    app:emptyDrawable="@drawable/ic_empty"
+    app:emptySubText="@string/sub_empty"
+    app:emptyText="@string/empty"
+    app:errorButtonBackgroundColor="@color/colorPrimary"
+    app:errorButtonText="Retry"
+    app:errorButtonTextColor="#ffffff"
+    app:errorButtonTextSize="12sp"
+    app:errorDrawable="@drawable/ic_error"
+    app:errorSubText="@string/sub_error"
+    app:errorText="@string/error"
+    app:isLargeProgress="true"
+    app:progressDrawable="@drawable/drawable_progress"
+    app:useEmptyButton="true"
+    app:useErrorButton="true"
+    tools:context="xyz.sangcomz.chameleonsample.MainActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_main_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</xyz.sangcomz.chameleon.Chameleon>
+```
+
+#### STATUS
+|  Status  | Description      |
+|:--------:|------------------|
+|  CONTENT | show content     |
+|  LOADING | show progress    |
+|  EMPTY   | show empty view  |
+|  ERROR   | show error view  |
+
+##### usage
+```kotlin
+chameleon.showState(Chameleon.STATE.CONTENT)
+chameleon.showState(Chameleon.STATE.LOADING)
+chameleon.showState(Chameleon.STATE.EMPTY)
+chameleon.showState(Chameleon.STATE.ERROR)
+```
 
 #### attribute
 
-|        Method Name       | Description                                | Default Value |
-|:------------------------:|--------------------------------------------|:-------------:|
-|  color                   | blah blah                                  |    value      |
+|         Method Name        | Description                               |    Default Value    |
+|:--------------------------:|-------------------------------------------|:-------------------:|
+|          emptyText         | empty view Change text                    |       "empty"       |
+|       emptyTextColor       | empty view Change text color              |       #808080       |
+|        emptyTextSize       | empty view Change text size               |         24sp        |
+|        emptySubText        | empty view Change sub text                |   "empty content"   |
+|      emptySubTextColor     | empty view Change sub text color          |       #b7b7b7       |
+|      emptySubTextSize      | empty view Change sub text size           |         16sp        |
+|        emptyDrawable       | empty view Change drawable                | R.drawable.ic_empty |
+|       emptyButtonText      | empty view Change button text             |       "retry"       |
+|    emptyButtonTextColor    | empty view Change button text color       |       #808080       |
+|     emptyButtonTextSize    | empty view Change button text size        |         24sp        |
+| emptyButtonBackgroundColor | empty view Change button background color |       #b7b7b7       |
+|       useEmptyButton       | Change whether to use empty view Button   |        false        |
+|          errorText         | error view Change text                    |        error        |
+|       errorTextColor       | error view Change text color              |       #808080       |
+|        errorTextSize       | error view Change text size               |         24sp        |
+|        errorSubText        | error view Change sub text                |    error content    |
+|      errorSubTextColor     | error view Change sub text color          |       #b7b7b7       |
+|      errorSubTextSize      | error view Change sub text size           |         16sp        |
+|        errorDrawable       | error view Change drawable                | R.drawable.ic_error |
+|       errorButtonText      | error view Change button text             |        retry        |
+|    errorButtonTextColor    | error view Change button text color       |       #808080       |
+|     errorButtonTextSize    | error view Change button text size        |         24sp        |
+| errorButtonBackgroundColor | error view Change button background color |       #808080       |
+|       useErrorButton       | Change whether to use error view Button   |        false        |
+|      progressDrawable      | progress drawable setting                 |          -          |
+|       isLargeProgress      | Whether to use large progress             |        false        |
 
 
 ## Result Screen
