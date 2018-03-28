@@ -29,7 +29,7 @@ data class ChameleonAttr(var emptyText: String,
                          var errorButtonTextSize: Float,
                          var errorButtonBackgroundColor: Int,
                          var useErrorButton:Boolean,
-                         var progressDrawable: Drawable,
+                         var progressDrawable: Drawable?,
                          var isLargeProgress: Boolean
 
 
