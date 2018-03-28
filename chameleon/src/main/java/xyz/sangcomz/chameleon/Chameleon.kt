@@ -62,7 +62,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getDimension(R.styleable.Chameleon_emptySubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
                                 it.getDrawable(R.styleable.Chameleon_emptyDrawable)
                                         ?: R.drawable.ic_empty.getDrawable(context),
-                                it.getString(R.styleable.Chameleon_emptyButtonText) ?: "error",
+                                it.getString(R.styleable.Chameleon_emptyButtonText) ?: "retry",
                                 it.getColor(R.styleable.Chameleon_emptyButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getDimension(R.styleable.Chameleon_emptyButtonTextSize, context.resources.getDimension(R.dimen.title_text_size)),
                                 it.getColor(R.styleable.Chameleon_emptyButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorSubText)),
