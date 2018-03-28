@@ -70,6 +70,9 @@ chameleon.showState(Chameleon.STATE.CONTENT)
 chameleon.showState(Chameleon.STATE.LOADING)
 chameleon.showState(Chameleon.STATE.EMPTY)
 chameleon.showState(Chameleon.STATE.ERROR)
+
+chameleon.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
+chameleon.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
 ```
 
 #### attribute
