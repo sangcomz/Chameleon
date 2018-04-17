@@ -318,6 +318,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun getState(): STATE = currentState
 
+    fun hasNoContent(): Boolean = stateContentView?.adapter?.itemCount == 0
+
     private fun setViewVisibility(contentViewVisible: Int = View.GONE,
                                   imageViewVisible: Int = View.GONE,
                                   titleViewVisible: Int = View.GONE,
