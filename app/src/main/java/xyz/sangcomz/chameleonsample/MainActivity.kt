@@ -38,7 +38,9 @@ class MainActivity : AppCompatActivity() {
                         {
                             root.showState(Chameleon.STATE.ERROR)
                         })
-
+        root.setStateChangeListener { newState, oldState ->
+            Toast.makeText(this, "state was $oldState and now is $newState", Toast.LENGTH_LONG).show()
+        }
 
     }
 
@@ -49,6 +51,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.menu_displayState -> {
+                Toast.makeText(this, "State is ${root.getState()}", Toast.LENGTH_LONG).show()
+            }
             R.id.menu_content -> {
                 root.showState(Chameleon.STATE.CONTENT)
             }
