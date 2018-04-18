@@ -32,6 +32,13 @@
         <attr name="progressDrawable" format="reference" />
         <attr name="isLargeProgress" format="boolean" />
 
+        <attr name="defaultState" format="enum">
+            <enum name="LOADING" value="1" />
+            <enum name="ERROR" value="2" />
+            <enum name="EMPTY" value="3" />
+            <enum name="CONTENT" value="4" />
+            <enum name="NONE" value="5" />
+        </attr>
 
         <!--<attr name="sectionBackgroundColor" format="color" />-->
         <!--<attr name="timeLineWidth" format="dimension" />-->

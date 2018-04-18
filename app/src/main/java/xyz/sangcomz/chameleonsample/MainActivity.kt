@@ -23,12 +23,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setChameleonList() {
-        root.showState(Chameleon.STATE.LOADING)
         rv_main_list.adapter = ChameleonAdapter()
         rv_main_list.layoutManager = LinearLayoutManager(this)
         rv_main_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         getChameleons()
-                .delay(3000, TimeUnit.MILLISECONDS)
+                .delay(5000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {

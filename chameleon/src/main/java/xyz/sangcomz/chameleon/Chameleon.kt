@@ -34,7 +34,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         LOADING,
         ERROR,
         EMPTY,
-        CONTENT
+        CONTENT,
+        NONE
     }
 
     private var stateContentView: RecyclerView? = null
@@ -87,10 +88,21 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getColor(R.styleable.Chameleon_errorButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getBoolean(R.styleable.Chameleon_useErrorButton, false),
                                 it.getDrawable(R.styleable.Chameleon_progressDrawable),
-                                it.getBoolean(R.styleable.Chameleon_isLargeProgress, false)
+                                it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
+                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultState, -1))
                         )
             }
 
+        }
+    }
+
+    private fun stateFromInt(int: Int): STATE {
+        return when (int) {
+            1 -> STATE.LOADING
+            2 -> STATE.ERROR
+            3 -> STATE.EMPTY
+            4 -> STATE.CONTENT
+            else -> STATE.NONE
         }
     }
 
@@ -121,6 +133,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             initStateSubTextView()
             initStateButton(it)
             initStateProgressBar(it)
+
+            showState(it.defaultState)
         }
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
@@ -310,6 +324,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                             retryViewVisible = if (it.useEmptyButton) View.VISIBLE else View.GONE)
                 }
             }
+            STATE.NONE -> { /* No-op */ }
         }
 
         stateChangeListener?.invoke(state, currentState)
