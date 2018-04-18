@@ -92,7 +92,7 @@ chameleon.contentOrEmpty(false) // EMPTY
 
 chameleon.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
 chameleon.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
-chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $oldState is now $newState")}
+chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $oldState is now $newState") }
 ```
 
 #### attribute
