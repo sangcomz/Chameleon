@@ -125,7 +125,7 @@ chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $old
 |       useErrorButton       | Change whether to use error view Button   |        false        |
 |      progressDrawable      | progress drawable setting                 |          -          |
 |       isLargeProgress      | Whether to use large progress             |        false        |
-|        defaultState        | Choose the initial state                  |         NONE        |
+|        defaultState        | Sets the initial state for Chameleon      |         NONE        |
 
 Note - A state of `NONE` means Chameleon won't do anything, and will just show the RecyclerView.
 
