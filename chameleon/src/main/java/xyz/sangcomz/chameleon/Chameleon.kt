@@ -34,8 +34,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         LOADING,
         ERROR,
         EMPTY,
-        CONTENT,
-        NONE
+        NONE,
+        CONTENT
     }
 
     private var stateContentView: RecyclerView? = null
@@ -96,13 +96,21 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         }
     }
 
+    /**
+     * Get the matching state from the view attribute value
+     * If the `defaultState` is not set by the developer,
+     * then by default `STATE.CONTENT` will be set
+     *
+     * @param int - Value from the attribute
+     * @return State to set
+     */
     private fun stateFromInt(int: Int): STATE {
         return when (int) {
             1 -> STATE.LOADING
             2 -> STATE.ERROR
             3 -> STATE.EMPTY
-            4 -> STATE.CONTENT
-            else -> STATE.NONE
+            4 -> STATE.NONE
+            else -> STATE.CONTENT
         }
     }
 
@@ -324,7 +332,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                             retryViewVisible = if (it.useEmptyButton) View.VISIBLE else View.GONE)
                 }
             }
-            STATE.NONE -> { /* No-op */ }
+            STATE.NONE -> setViewVisibility()
         }
 
         if (state != currentState) {
