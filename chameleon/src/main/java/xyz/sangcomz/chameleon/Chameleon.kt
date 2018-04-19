@@ -327,7 +327,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             STATE.NONE -> { /* No-op */ }
         }
 
-        stateChangeListener?.invoke(state, currentState)
+        if (state != currentState) {
+            stateChangeListener?.invoke(state, currentState)
+        }
         currentState = state
     }
 
