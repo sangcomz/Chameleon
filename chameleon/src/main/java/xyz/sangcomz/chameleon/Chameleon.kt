@@ -5,7 +5,11 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
-import android.support.constraint.ConstraintSet.*
+import android.support.constraint.ConstraintSet.BOTTOM
+import android.support.constraint.ConstraintSet.END
+import android.support.constraint.ConstraintSet.PARENT_ID
+import android.support.constraint.ConstraintSet.START
+import android.support.constraint.ConstraintSet.TOP
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatImageView
@@ -30,6 +34,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         LOADING,
         ERROR,
         EMPTY,
+        NONE,
         CONTENT
     }
 
@@ -41,8 +46,10 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     private var stateButton: AppCompatButton? = null
     private var errorButtonListener: ((View) -> Unit)? = null
     private var emptyButtonListener: ((View) -> Unit)? = null
+    private var stateChangeListener: ((newState: STATE, oldState: STATE) -> Unit)? = null
 
     private var chameleonAttr: ChameleonAttr? = null
+    private var currentState: STATE = STATE.EMPTY
 
     init {
         attrs?.let {
@@ -81,10 +88,29 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getColor(R.styleable.Chameleon_errorButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getBoolean(R.styleable.Chameleon_useErrorButton, false),
                                 it.getDrawable(R.styleable.Chameleon_progressDrawable),
-                                it.getBoolean(R.styleable.Chameleon_isLargeProgress, false)
+                                it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
+                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultState, -1))
                         )
             }
 
+        }
+    }
+
+    /**
+     * Get the matching state from the view attribute value
+     * If the `defaultState` is not set by the developer,
+     * then by default `STATE.CONTENT` will be set
+     *
+     * @param int - Value from the attribute
+     * @return State to set
+     */
+    private fun stateFromInt(int: Int): STATE {
+        return when (int) {
+            1 -> STATE.LOADING
+            2 -> STATE.ERROR
+            3 -> STATE.EMPTY
+            4 -> STATE.NONE
+            else -> STATE.CONTENT
         }
     }
 
@@ -115,6 +141,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             initStateSubTextView()
             initStateButton(it)
             initStateProgressBar(it)
+
+            showState(it.defaultState)
         }
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
@@ -287,8 +315,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 setViewVisibility(progressViewVisible = View.VISIBLE)
             }
             STATE.EMPTY -> {
-
-
                 chameleonAttr?.let {
                     setStateImageView(it.emptyDrawable ?: R.drawable.ic_empty.getDrawable(context))
                     setStateTitleTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor)
@@ -305,10 +331,19 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                             subViewVisible = View.VISIBLE,
                             retryViewVisible = if (it.useEmptyButton) View.VISIBLE else View.GONE)
                 }
-
             }
+            STATE.NONE -> setViewVisibility()
         }
+
+        if (state != currentState) {
+            stateChangeListener?.invoke(state, currentState)
+        }
+        currentState = state
     }
+
+    fun getState(): STATE = currentState
+
+    fun hasNoContent(): Boolean = stateContentView?.adapter?.itemCount == 0
 
     private fun setViewVisibility(contentViewVisible: Int = View.GONE,
                                   imageViewVisible: Int = View.GONE,
@@ -364,5 +399,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun setEmptyButtonClickListener(clickListener: (View) -> Unit) {
         emptyButtonListener = clickListener
+    }
+
+    fun setStateChangeListener(listener: ((newState: STATE, oldState: STATE) -> Unit)) {
+        stateChangeListener = listener
     }
 }

@@ -1,6 +1,7 @@
 package xyz.sangcomz.chameleon.model
 
 import android.graphics.drawable.Drawable
+import xyz.sangcomz.chameleon.Chameleon
 
 /**
  * Created by seokwon.jeong on 17/11/2017.
@@ -30,7 +31,6 @@ data class ChameleonAttr(var emptyText: String,
                          var errorButtonBackgroundColor: Int,
                          var useErrorButton:Boolean,
                          var progressDrawable: Drawable?,
-                         var isLargeProgress: Boolean
-
-
+                         var isLargeProgress: Boolean,
+                         var defaultState: Chameleon.STATE
 )

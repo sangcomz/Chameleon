@@ -6,4 +6,5 @@
     <string name="empty">Empty</string>
     <string name="sub_empty">Where is chameleon?</string>
     <string name="sub_error">The chameleon is dead.</string>
+    <string name="display">Display State</string>
 </resources>
