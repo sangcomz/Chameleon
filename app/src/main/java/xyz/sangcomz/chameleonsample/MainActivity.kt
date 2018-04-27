@@ -23,12 +23,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setChameleonList() {
-        root.showState(Chameleon.STATE.LOADING)
         rv_main_list.adapter = ChameleonAdapter()
         rv_main_list.layoutManager = LinearLayoutManager(this)
         rv_main_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         getChameleons()
-                .delay(3000, TimeUnit.MILLISECONDS)
+                .delay(5000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
@@ -38,7 +37,9 @@ class MainActivity : AppCompatActivity() {
                         {
                             root.showState(Chameleon.STATE.ERROR)
                         })
-
+        root.setStateChangeListener { newState, oldState ->
+            Toast.makeText(this, "state was $oldState and now is $newState", Toast.LENGTH_LONG).show()
+        }
 
     }
 
@@ -49,6 +50,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.menu_displayState -> {
+                Toast.makeText(this, "State is ${root.getState()}", Toast.LENGTH_LONG).show()
+            }
             R.id.menu_content -> {
                 root.showState(Chameleon.STATE.CONTENT)
             }

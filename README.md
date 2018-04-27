@@ -1,12 +1,15 @@
 
-# Chameleoen 
+# Chameleon 
 
 
 <img src="/pic/logo.png" width = 20%> 
 
 [![](https://jitpack.io/v/sangcomz/chameleon.svg)](https://jitpack.io/#sangcomz/chameleon)
 
-Chameleoen deals with the Status of RecyclerView.
+Chameleon deals with the Status of RecyclerView.
+
+## What's New in 0.0.3? :tada:
+- Add ability to access current state :clap: [@jordond](https://github.com/jordond)
 
 ## How to Use
 
@@ -17,7 +20,7 @@ Chameleoen deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.0.1'
+        compile 'com.github.sangcomz:Chameleon:v0.0.3'
     }
 ```
 ### Usage
@@ -46,6 +49,7 @@ Chameleoen deals with the Status of RecyclerView.
     app:progressDrawable="@drawable/drawable_progress"
     app:useEmptyButton="true"
     app:useErrorButton="true"
+    app:defaultState="LOADING"
     tools:context="xyz.sangcomz.chameleonsample.MainActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -57,22 +61,41 @@ Chameleoen deals with the Status of RecyclerView.
 ```
 
 #### STATUS
-|  Status  | Description      |
-|:--------:|------------------|
-|  CONTENT | show content     |
-|  LOADING | show progress    |
-|  EMPTY   | show empty view  |
-|  ERROR   | show error view  |
+|  Status  | Description       |
+|:--------:|-------------------|
+|  CONTENT | show content      |
+|  LOADING | show progress     |
+|  EMPTY   | show empty view   |
+|  ERROR   | show error view   |
+|  NONE    | show RecyclerView |
 
 ##### usage
 ```kotlin
+// Set state using showState
 chameleon.showState(Chameleon.STATE.CONTENT)
 chameleon.showState(Chameleon.STATE.LOADING)
 chameleon.showState(Chameleon.STATE.EMPTY)
 chameleon.showState(Chameleon.STATE.ERROR)
+chameleon.showState(Chameleon.STATE.NONE)
+
+// Or use the extension functions
+chameleon.setContent()
+chameleon.setLoading()
+chameleon.setEmpty()
+chameleon.setError()
+chameleon.setNone()
+
+// As well as toggling between states with a boolean
+viewModel.isLoading.observe(this, Observer {
+    chameleon.loadingOrContent(it) // true = LOADING, false = CONTENT
+})
+
+chameleon.contentOrEmpty(true) // CONTENT
+chameleon.contentOrEmpty(false) // EMPTY
 
 chameleon.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
 chameleon.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
+chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $oldState is now $newState") }
 ```
 
 #### attribute
@@ -105,6 +128,9 @@ chameleon.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", To
 |       useErrorButton       | Change whether to use error view Button   |        false        |
 |      progressDrawable      | progress drawable setting                 |          -          |
 |       isLargeProgress      | Whether to use large progress             |        false        |
+|        defaultState        | Sets the initial state for Chameleon      |         NONE        |
+
+Note - A state of `NONE` means Chameleon won't do anything, and will just show the RecyclerView.
 
 
 ## Result Screen
