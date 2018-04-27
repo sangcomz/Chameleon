@@ -8,6 +8,9 @@
 
 Chameleon deals with the Status of RecyclerView.
 
+## What's New in 0.0.3? :tada:
+- Add ability to access current state :clap: [@jordond](https://github.com/jordond)
+
 ## How to Use
 
 ### Gradle
@@ -17,7 +20,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.0.1'
+        compile 'com.github.sangcomz:Chameleon:v0.0.3'
     }
 ```
 ### Usage
