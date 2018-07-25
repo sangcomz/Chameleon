@@ -33,6 +33,13 @@
         <attr name="progressBackgroundColor" format="color" />
         <attr name="isShowContentWhenLoadingState" format="boolean" />
         <attr name="isLargeProgress" format="boolean" />
+        <attr name="hasLoadingMessage" format="boolean" />
+        <attr name="loadingText" format="string" />
+        <attr name="loadingTextColor" format="color" />
+        <attr name="loadingTextSize" format="dimension" />
+        <attr name="loadingSubText" format="string" />
+        <attr name="loadingSubTextColor" format="color" />
+        <attr name="loadingSubTextSize" format="dimension" />
 
         <attr name="defaultChameleonState" format="enum">
             <enum name="LOADING" value="1" />
@@ -110,12 +117,12 @@
             <enum name="top" value="48" />
         </attr>
 
-        <attr name="stateImageBottomMargin" format="dimension"/>
-        <attr name="SubTitleTextTopMargin" format="dimension"/>
-        <attr name="ButtonTopMargin" format="dimension"/>
+        <attr name="stateImageBottomMargin" format="dimension" />
+        <attr name="subTitleTextTopMargin" format="dimension" />
+        <attr name="buttonTopMargin" format="dimension" />
 
-        <attr name="titleFontFamily" format="reference"/>
-        <attr name="subTitleFontFamily" format="reference"/>
-        <attr name="buttonFontFamily" format="reference"/>
+        <attr name="titleFontFamily" format="reference" />
+        <attr name="subTitleFontFamily" format="reference" />
+        <attr name="buttonFontFamily" format="reference" />
     </declare-styleable>
 </resources>

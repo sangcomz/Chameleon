@@ -148,22 +148,30 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                         ),
                         it.getBoolean(R.styleable.Chameleon_isShowContentWhenLoadingState, false),
                         it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
-                        stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1)),
                         it.getDimension(
                             R.styleable.Chameleon_stateImageBottomMargin,
                             4.DP(context)
                         ),
                         it.getDimension(
-                            R.styleable.Chameleon_SubTitleTextTopMargin,
+                            R.styleable.Chameleon_subTitleTextTopMargin,
                             4.DP(context)
                         ),
                         it.getDimension(
-                            R.styleable.Chameleon_ButtonTopMargin,
+                            R.styleable.Chameleon_buttonTopMargin,
                             16.DP(context)
                         ),
                         it.getResourceId(R.styleable.Chameleon_titleFontFamily, -1),
                         it.getResourceId(R.styleable.Chameleon_subTitleFontFamily, -1),
-                        it.getResourceId(R.styleable.Chameleon_buttonFontFamily, -1)
+                        it.getResourceId(R.styleable.Chameleon_buttonFontFamily, -1),
+                        true,
+                        it.getString(R.styleable.Chameleon_loadingText) ?: "loading",
+                        it.getColor(R.styleable.Chameleon_loadingTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
+                        it.getDimension(R.styleable.Chameleon_loadingTextSize, context.resources.getDimension(R.dimen.title_text_size)),
+                        it.getString(R.styleable.Chameleon_loadingSubText)
+                            ?: "now loading...",
+                        it.getColor(R.styleable.Chameleon_loadingSubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
+                        it.getDimension(R.styleable.Chameleon_loadingSubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
+                        stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1))
                     )
                 it.recycle()
             }
@@ -268,6 +276,39 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
             constraintSet.applyTo(this)
         }
+        val hasLoadingMessage = chameleonAttr?.hasLoadingMessage ?: false
+
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(this)
+
+        constraintSet.connect(R.id.iv_state, TOP, PARENT_ID, TOP)
+        constraintSet.connect(R.id.iv_state, START, PARENT_ID, START)
+        constraintSet.connect(R.id.iv_state, BOTTOM, R.id.tv_title_state, TOP, 4.DP(context).toInt())
+        constraintSet.connect(R.id.iv_state, END, PARENT_ID, END)
+        constraintSet.setVerticalBias(R.id.iv_state, 1f)
+
+        constraintSet.connect(R.id.tv_title_state, TOP, PARENT_ID, TOP)
+        constraintSet.connect(R.id.tv_title_state, START, PARENT_ID, START)
+        constraintSet.connect(R.id.tv_title_state, BOTTOM, PARENT_ID, BOTTOM)
+        constraintSet.connect(R.id.tv_title_state, END, PARENT_ID, END)
+
+        constraintSet.connect(R.id.tv_sub_state, TOP, R.id.tv_title_state, BOTTOM, 4.DP(context).toInt())
+        constraintSet.connect(R.id.tv_sub_state, START, PARENT_ID, START)
+        constraintSet.connect(R.id.tv_sub_state, END, PARENT_ID, END)
+
+        constraintSet.connect(R.id.bt_state, TOP, R.id.tv_sub_state, BOTTOM, 16.DP(context).toInt())
+        constraintSet.connect(R.id.bt_state, START, PARENT_ID, START)
+        constraintSet.connect(R.id.bt_state, BOTTOM, PARENT_ID, BOTTOM)
+        constraintSet.connect(R.id.bt_state, END, PARENT_ID, END)
+        constraintSet.setVerticalBias(R.id.bt_state, 0f)
+
+        val constraintID = if (hasLoadingMessage) R.id.iv_state else PARENT_ID
+        constraintSet.connect(R.id.pb_state, TOP, constraintID, TOP)
+        constraintSet.connect(R.id.pb_state, START, constraintID, START)
+        constraintSet.connect(R.id.pb_state, BOTTOM, constraintID, BOTTOM)
+        constraintSet.connect(R.id.pb_state, END, constraintID, END)
+
+        constraintSet.applyTo(this)
     }
 
 
