@@ -16,7 +16,6 @@
     app:errorButtonText="Retry"
     app:errorButtonTextColor="#ffffff"
     app:errorButtonTextSize="12sp"
-    app:errorDrawable="@drawable/ic_error"
     app:errorSubText="@string/sub_error"
     app:errorText="@string/error"
     app:isLargeProgress="true"
