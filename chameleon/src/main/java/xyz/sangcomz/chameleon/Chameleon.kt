@@ -5,11 +5,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
-import android.support.constraint.ConstraintSet.BOTTOM
-import android.support.constraint.ConstraintSet.END
-import android.support.constraint.ConstraintSet.PARENT_ID
-import android.support.constraint.ConstraintSet.START
-import android.support.constraint.ConstraintSet.TOP
+import android.support.constraint.ConstraintSet.*
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatImageView
@@ -190,8 +186,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateImageViewView() {
-        stateImageView = AppCompatImageView(context)
-        stateImageView?.apply {
+        stateImageView = AppCompatImageView(context).apply {
             id = R.id.iv_state
             visibility = View.GONE
         }
