@@ -63,7 +63,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getString(R.styleable.Chameleon_emptySubText) ?: "empty content",
                                 it.getColor(R.styleable.Chameleon_emptySubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
                                 it.getDimension(R.styleable.Chameleon_emptySubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
-                                it.getDrawable(R.styleable.Chameleon_emptyDrawable)
+                                it.getResourceId(R.styleable.Chameleon_emptyDrawable, -1).getDrawable(context)
                                         ?: R.drawable.ic_empty.getDrawable(context),
                                 it.getString(R.styleable.Chameleon_emptyButtonText) ?: "retry",
                                 it.getColor(R.styleable.Chameleon_emptyButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
@@ -76,7 +76,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getString(R.styleable.Chameleon_errorSubText) ?: "error content",
                                 it.getColor(R.styleable.Chameleon_errorSubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
                                 it.getDimension(R.styleable.Chameleon_errorSubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
-                                it.getDrawable(R.styleable.Chameleon_errorDrawable)
+                                it.getResourceId(R.styleable.Chameleon_errorDrawable, -1).getDrawable(context)
                                         ?: R.drawable.ic_error.getDrawable(context),
                                 it.getString(R.styleable.Chameleon_errorButtonText) ?: "retry",
                                 it.getColor(R.styleable.Chameleon_errorButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
