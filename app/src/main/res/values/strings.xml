@@ -5,6 +5,8 @@
     <string name="error">Error</string>
     <string name="empty">Empty</string>
     <string name="sub_empty">Where is chameleon?</string>
+    <string name="long_empty">Empty Long Long Long Long Long Long Long</string>
+    <string name="long_sub_empty">Where is chameleon? Where is chameleon? Where is chameleon? Where is chameleon? Where is chameleon?</string>
     <string name="sub_error">The chameleon is dead.</string>
     <string name="display">Display State</string>
 </resources>

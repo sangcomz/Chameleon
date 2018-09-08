@@ -8,8 +8,9 @@
 
 Chameleon deals with the Status of RecyclerView.
 
-## What's New in 0.0.3? :tada:
-- Add ability to access current state :clap: [@jordond](https://github.com/jordond)
+## What's New in 0.1.0? :tada:
+- Vector Image Support
+- Add feature to set text gravity
 
 ## How to Use
 
@@ -20,7 +21,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.0.3'
+        compile 'com.github.sangcomz:Chameleon:v0.1.0'
     }
 ```
 ### Usage
@@ -105,9 +106,11 @@ chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $old
 |          emptyText         | empty view Change text                    |       "empty"       |
 |       emptyTextColor       | empty view Change text color              |       #808080       |
 |        emptyTextSize       | empty view Change text size               |         24sp        |
+|       emptyTextGravity     | empty view Change text gravity            |          0          |
 |        emptySubText        | empty view Change sub text                |   "empty content"   |
 |      emptySubTextColor     | empty view Change sub text color          |       #b7b7b7       |
 |      emptySubTextSize      | empty view Change sub text size           |         16sp        |
+|     emptySubTextGravity    | empty view Change sub text gravity        |          0          |
 |        emptyDrawable       | empty view Change drawable                | R.drawable.ic_empty |
 |       emptyButtonText      | empty view Change button text             |       "retry"       |
 |    emptyButtonTextColor    | empty view Change button text color       |       #808080       |
@@ -117,9 +120,11 @@ chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $old
 |          errorText         | error view Change text                    |        "error"      |
 |       errorTextColor       | error view Change text color              |       #808080       |
 |        errorTextSize       | error view Change text size               |         24sp        |
+|       errorTextGravity     | empty view Change text gravity            |          0          |
 |        errorSubText        | error view Change sub text                |    "error content"  |
 |      errorSubTextColor     | error view Change sub text color          |       #b7b7b7       |
 |      errorSubTextSize      | error view Change sub text size           |         16sp        |
+|     errorSubTextGravity    | error view Change sub text gravity        |          0          |
 |        errorDrawable       | error view Change drawable                | R.drawable.ic_error |
 |       errorButtonText      | error view Change button text             |        "retry"      |
 |    errorButtonTextColor    | error view Change button text color       |       #808080       |

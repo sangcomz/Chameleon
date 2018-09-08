@@ -5,6 +5,7 @@
         <attr name="emptyText" format="string" />
         <attr name="emptyTextColor" format="color" />
         <attr name="emptyTextSize" format="dimension" />
+
         <attr name="emptySubText" format="string" />
         <attr name="emptySubTextColor" format="color" />
         <attr name="emptySubTextSize" format="dimension" />
@@ -40,8 +41,72 @@
             <enum name="CONTENT" value="5" />
         </attr>
 
-        <!--<attr name="sectionBackgroundColor" format="color" />-->
-        <!--<attr name="timeLineWidth" format="dimension" />-->
-        <!--<attr name="isSticky" format="boolean" />-->
+        <attr name="emptyTextGravity" format="enum">
+            <enum name="center" value="17" />
+            <enum name="center_horizontal" value="1" />
+            <enum name="center_vertical" value="16" />
+            <enum name="bottom" value="80" />
+            <enum name="clip_horizontal" value="8" />
+            <enum name="clip_vertical" value="128" />
+            <enum name="end" value="8388613" />
+            <enum name="fill" value="119" />
+            <enum name="fill_horizontal" value="7" />
+            <enum name="fill_vertical" value="7" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+            <enum name="start" value="8388611" />
+            <enum name="top" value="48" />
+        </attr>
+
+        <attr name="emptySubTextGravity" format="enum">
+            <enum name="center" value="17" />
+            <enum name="center_horizontal" value="1" />
+            <enum name="center_vertical" value="16" />
+            <enum name="bottom" value="80" />
+            <enum name="clip_horizontal" value="8" />
+            <enum name="clip_vertical" value="128" />
+            <enum name="end" value="8388613" />
+            <enum name="fill" value="119" />
+            <enum name="fill_horizontal" value="7" />
+            <enum name="fill_vertical" value="7" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+            <enum name="start" value="8388611" />
+            <enum name="top" value="48" />
+        </attr>
+
+        <attr name="errorTextGravity" format="enum">
+            <enum name="center" value="17" />
+            <enum name="center_horizontal" value="1" />
+            <enum name="center_vertical" value="16" />
+            <enum name="bottom" value="80" />
+            <enum name="clip_horizontal" value="8" />
+            <enum name="clip_vertical" value="128" />
+            <enum name="end" value="8388613" />
+            <enum name="fill" value="119" />
+            <enum name="fill_horizontal" value="7" />
+            <enum name="fill_vertical" value="7" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+            <enum name="start" value="8388611" />
+            <enum name="top" value="48" />
+        </attr>
+
+        <attr name="errorSubTextGravity" format="enum">
+            <enum name="center" value="17" />
+            <enum name="center_horizontal" value="1" />
+            <enum name="center_vertical" value="16" />
+            <enum name="bottom" value="80" />
+            <enum name="clip_horizontal" value="8" />
+            <enum name="clip_vertical" value="128" />
+            <enum name="end" value="8388613" />
+            <enum name="fill" value="119" />
+            <enum name="fill_horizontal" value="7" />
+            <enum name="fill_vertical" value="7" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+            <enum name="start" value="8388611" />
+            <enum name="top" value="48" />
+        </attr>
     </declare-styleable>
 </resources>
