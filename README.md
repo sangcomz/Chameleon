@@ -8,8 +8,8 @@
 
 Chameleon deals with the Status of RecyclerView.
 
-## What's New in 0.0.3? :tada:
-- Add ability to access current state :clap: [@jordond](https://github.com/jordond)
+## What's New in 0.1.0? :tada:
+- Vector Image Support
 
 ## How to Use
 
@@ -20,7 +20,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.0.3'
+        compile 'com.github.sangcomz:Chameleon:v0.1.0'
     }
 ```
 ### Usage
