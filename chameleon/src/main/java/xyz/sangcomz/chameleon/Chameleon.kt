@@ -60,9 +60,11 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getString(R.styleable.Chameleon_emptyText) ?: "empty",
                                 it.getColor(R.styleable.Chameleon_emptyTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getDimension(R.styleable.Chameleon_emptyTextSize, context.resources.getDimension(R.dimen.title_text_size)),
+                                it.getInt(R.styleable.Chameleon_emptyTextGravity, 0),
                                 it.getString(R.styleable.Chameleon_emptySubText) ?: "empty content",
                                 it.getColor(R.styleable.Chameleon_emptySubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
                                 it.getDimension(R.styleable.Chameleon_emptySubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
+                                it.getInt(R.styleable.Chameleon_emptySubTextGravity, 0),
                                 it.getResourceId(R.styleable.Chameleon_emptyDrawable, R.drawable.ic_chameleon_empty).getDrawable(context),
                                 it.getString(R.styleable.Chameleon_emptyButtonText) ?: "retry",
                                 it.getColor(R.styleable.Chameleon_emptyButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
@@ -72,9 +74,11 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getString(R.styleable.Chameleon_errorText) ?: "error",
                                 it.getColor(R.styleable.Chameleon_errorTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getDimension(R.styleable.Chameleon_errorTextSize, context.resources.getDimension(R.dimen.title_text_size)),
+                                it.getInt(R.styleable.Chameleon_errorTextGravity, 0),
                                 it.getString(R.styleable.Chameleon_errorSubText) ?: "error content",
                                 it.getColor(R.styleable.Chameleon_errorSubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
                                 it.getDimension(R.styleable.Chameleon_errorSubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
+                                it.getInt(R.styleable.Chameleon_errorSubTextGravity, 0),
                                 it.getResourceId(R.styleable.Chameleon_errorDrawable, R.drawable.ic_chameleon_error).getDrawable(context),
                                 it.getString(R.styleable.Chameleon_errorButtonText) ?: "retry",
                                 it.getColor(R.styleable.Chameleon_errorButtonTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
@@ -141,8 +145,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
 
-//        constraintSet.connect(R.id.tv)
-
         constraintSet.connect(R.id.iv_state, TOP, PARENT_ID, TOP)
         constraintSet.connect(R.id.iv_state, START, PARENT_ID, START)
         constraintSet.connect(R.id.iv_state, BOTTOM, R.id.tv_title_state, TOP, 4.DP(context).toInt())
@@ -201,12 +203,11 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateTitleTextView() {
-        val padding = 8.DP(context).toInt()
+        val padding = 32.DP(context).toInt()
         stateTitleTextView = AppCompatTextView(context)
         stateTitleTextView?.apply {
             id = R.id.tv_title_state
             setPadding(padding, 0, padding, 0)
-            maxLines = 1
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
         }
@@ -218,12 +219,11 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateSubTextView() {
-        val padding = 8.DP(context).toInt()
+        val padding = 32.DP(context).toInt()
         stateSubTextView = AppCompatTextView(context)
         stateSubTextView?.apply {
             id = R.id.tv_sub_state
             setPadding(padding, 0, padding, 0)
-            maxLines = 1
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
         }
@@ -289,8 +289,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 chameleonAttr?.let {
                     setStateImageView(it.errorDrawable
                             ?: R.drawable.ic_chameleon_error.getDrawable(context))
-                    setStateTitleTextView(it.errorText, it.errorTextSize, it.errorTextColor)
-                    setStateSubTextView(it.errorSubText, it.errorSubTextSize, it.errorSubTextColor)
+                    setStateTitleTextView(it.errorText, it.errorTextSize, it.errorTextColor, it.errorTextGravity)
+                    setStateSubTextView(it.errorSubText, it.errorSubTextSize, it.errorSubTextColor, it.errorSubTextGravity)
 
                     if (it.useErrorButton)
                         setStateButton(it.errorButtonText,
@@ -312,8 +312,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 chameleonAttr?.let {
                     setStateImageView(it.emptyDrawable
                             ?: R.drawable.ic_chameleon_empty.getDrawable(context))
-                    setStateTitleTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor)
-                    setStateSubTextView(it.emptySubText, it.emptySubTextSize, it.emptySubTextColor)
+                    setStateTitleTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor, it.emptyTextGravity)
+                    setStateSubTextView(it.emptySubText, it.emptySubTextSize, it.emptySubTextColor, it.emptySubTextGravity)
                     if (it.useEmptyButton)
                         setStateButton(it.emptyButtonText,
                                 it.emptyButtonTextSize,
@@ -358,16 +358,18 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         stateImageView?.setImageDrawable(drawable)
     }
 
-    private fun setStateTitleTextView(content: String, size: Float, color: Int) {
+    private fun setStateTitleTextView(content: String, size: Float, color: Int, gravity: Int) {
         stateTitleTextView?.apply {
+            this.gravity = gravity
             text = content
             setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
             setTextColor(color)
         }
     }
 
-    private fun setStateSubTextView(content: String, size: Float, color: Int) {
+    private fun setStateSubTextView(content: String, size: Float, color: Int, gravity: Int) {
         stateSubTextView?.apply {
+            this.gravity = gravity
             text = content
             setTextSize(TypedValue.COMPLEX_UNIT_PX, size)
             setTextColor(color)

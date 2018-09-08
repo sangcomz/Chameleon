@@ -1,7 +1,7 @@
 include ':app', ':chameleon'
 
-gradle.ext.set('versionCode', 7)
-gradle.ext.set('versionName', '0.0.7')
+gradle.ext.set('versionCode', 8)
+gradle.ext.set('versionName', '0.1.0')
 
 gradle.ext.set('minSdk', 15)
 gradle.ext.set('targetSdk', 27)
