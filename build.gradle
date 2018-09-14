@@ -12,7 +12,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-
+        classpath 'co.riiid:gradle-github-plugin:0.4.2'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,7 +22,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven{
+        maven {
             url 'http://175.113.105.99:8081/repository/sangcomz-maven-public/'
         }
     }

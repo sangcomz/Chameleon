@@ -9,7 +9,7 @@ android {
             signProp.load(project.rootProject.file('release/sign.properties').newDataInputStream())
             config {
                 keyAlias signProp.get("alias") ? signProp.get("alias") : ""
-                keyPassword signProp.get("alias_password") ? signProp.get("alias_password") : ""
+                keyPassword signProp.get("password") ? signProp.get("password") : ""
                 storeFile rootProject.file("release/key.jks")
                 storePassword signProp.get("password") ? signProp.get("password") : ""
                 v2SigningEnabled true
@@ -37,6 +37,12 @@ android {
         }
 
         debug {
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            output.outputFileName = outputFile.name.replace('.apk', "-${versionName}.apk").replace('app-', "chameleon-")
         }
     }
 }
