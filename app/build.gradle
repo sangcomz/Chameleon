@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
 android {
     signingConfigs {
         if (project.rootProject.file('release/sign.properties').exists()) {
@@ -58,4 +58,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':chameleon')
+}
+
+play {
+    jsonFile = file('play_key.json')
+    track = 'beta' // Or any of 'rollout', 'beta', 'alpha' or 'internal'
 }

@@ -1,5 +1,3 @@
-version = gradle.versionName
-
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
@@ -7,11 +5,11 @@ github {
     owner = 'sangcomz'
     repo = 'Chameleon'
     token = properties.getProperty("github_access_tokens", ' ')
-    tagName = 'v' + version
+    tagName = 'v' + gradle.versionName
     targetCommitish = 'master'
     body = """## Release Note
-* Add Release gradle to github"""
-    name = 'r' + version
+* Test Release"""
+    name = 'r' + gradle.versionName
     assets = [
             'app/build/outputs/apk/debug/chameleon-debug-' + gradle.versionName + '.apk',
             'app/build/outputs/apk/release/chameleon-release-' + gradle.versionName + '.apk',
