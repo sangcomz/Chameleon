@@ -1,5 +1,8 @@
 Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+if(project.rootProject.file('local.properties').isFile()){
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
 
 github {
     owner = 'sangcomz'
