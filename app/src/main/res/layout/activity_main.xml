@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:defaultState="LOADING"
+    app:defaultChameleonState="LOADING"
     app:emptyButtonBackgroundColor="@color/colorPrimary"
     app:emptyButtonText="+Add Chameleon"
     app:emptyButtonTextColor="#ffffff"

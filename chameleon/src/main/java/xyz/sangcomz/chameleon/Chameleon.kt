@@ -5,7 +5,11 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
 import android.support.constraint.ConstraintSet
-import android.support.constraint.ConstraintSet.*
+import android.support.constraint.ConstraintSet.BOTTOM
+import android.support.constraint.ConstraintSet.END
+import android.support.constraint.ConstraintSet.PARENT_ID
+import android.support.constraint.ConstraintSet.START
+import android.support.constraint.ConstraintSet.TOP
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatImageView
@@ -87,7 +91,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getBoolean(R.styleable.Chameleon_useErrorButton, false),
                                 it.getDrawable(R.styleable.Chameleon_progressDrawable),
                                 it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
-                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultState, -1))
+                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1))
                         )
             }
 
@@ -140,7 +144,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             initStateButton(it)
             initStateProgressBar(it)
 
-            showState(it.defaultState)
+            showState(it.defaultChameleonState)
         }
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
