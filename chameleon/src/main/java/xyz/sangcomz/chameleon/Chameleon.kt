@@ -14,8 +14,10 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import xyz.sangcomz.chameleon.ext.DP
 import xyz.sangcomz.chameleon.ext.getDrawable
@@ -40,7 +42,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     private var stateImageView: AppCompatImageView? = null
     private var stateTitleTextView: AppCompatTextView? = null
     private var stateSubTextView: AppCompatTextView? = null
-    private var stateProgressBar: ProgressBar? = null
+    private var stateProgressLayout: FrameLayout? = null
+    //    private var stateProgressBar: ProgressBar? = null
     private var stateButton: AppCompatButton? = null
     private var errorButtonListener: ((View) -> Unit)? = null
     private var emptyButtonListener: ((View) -> Unit)? = null
@@ -88,6 +91,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getColor(R.styleable.Chameleon_errorButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getBoolean(R.styleable.Chameleon_useErrorButton, false),
                                 it.getDrawable(R.styleable.Chameleon_progressDrawable),
+                                it.getBoolean(R.styleable.Chameleon_useProgressBackground, false),
+                                it.getColor(R.styleable.Chameleon_progressBackgroundColor, ContextCompat.getColor(context, R.color.colorLoadingBackground)),
+                                it.getBoolean(R.styleable.Chameleon_isShowContentWhenLoadingState, false),
                                 it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
                                 stateFromInt(it.getInt(R.styleable.Chameleon_defaultState, -1))
                         )
@@ -237,7 +243,15 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateProgressBar(attr: ChameleonAttr) {
-        stateProgressBar =
+        stateProgressLayout = FrameLayout(context)
+        stateProgressLayout?.apply {
+            id = R.id.pb_state
+            if (attr.useProgressBackground)
+                setBackgroundColor(attr.progressBackgroundColor)
+//            setBackgroundColor(Color.TRANSPARENT)
+            visibility = View.GONE
+        }
+        val stateProgressBar =
                 if (attr.isLargeProgress)
                     ProgressBar(context,
                             null,
@@ -245,20 +259,20 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 else
                     ProgressBar(context)
 
-        stateProgressBar?.apply {
-            id = R.id.pb_state
+        stateProgressBar.apply {
+            //            id = R.id.pb_state
             chameleonAttr?.progressDrawable?.let {
                 indeterminateDrawable = it
             }
-            visibility = View.GONE
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val progressBarLayoutParams = FrameLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        super.addView(stateProgressBar, layoutParams)
+        progressBarLayoutParams.gravity = CENTER
+
+        stateProgressLayout?.addView(stateProgressBar, progressBarLayoutParams)
+        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT)
+        super.addView(stateProgressLayout, layoutParams)
     }
 
 
@@ -322,7 +336,14 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 }
             }
             STATE.LOADING -> {
-                setViewVisibility(progressViewVisible = View.VISIBLE)
+                chameleonAttr?.let {
+                    setViewVisibility(progressViewVisible = View.VISIBLE,
+                            contentViewVisible = if (it.isShowProgressWhenContentState
+                                    && (currentState == STATE.CONTENT))
+                                View.VISIBLE
+                            else
+                                View.GONE)
+                }
             }
             STATE.EMPTY -> {
                 chameleonAttr?.let {
@@ -377,7 +398,10 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         stateImageView?.visibility = imageViewVisible
         stateTitleTextView?.visibility = titleViewVisible
         stateSubTextView?.visibility = subViewVisible
-        stateProgressBar?.visibility = progressViewVisible
+
+        stateProgressLayout?.visibility = progressViewVisible
+        if (progressViewVisible == View.VISIBLE) stateProgressLayout?.bringToFront()
+
         stateButton?.visibility = retryViewVisible
     }
 

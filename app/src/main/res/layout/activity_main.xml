@@ -23,9 +23,12 @@
     app:errorSubText="@string/sub_error"
     app:errorText="@string/error"
     app:isLargeProgress="true"
+    app:isShowContentWhenLoadingState="true"
+    app:progressBackgroundColor="#66ff0000"
     app:progressDrawable="@drawable/drawable_progress"
     app:useEmptyButton="true"
     app:useErrorButton="true"
+    app:useProgressBackground="true"
     tools:context="xyz.sangcomz.chameleonsample.MainActivity">
 
     <android.support.v7.widget.RecyclerView

@@ -35,6 +35,9 @@ data class ChameleonAttr(var emptyText: String,
                          var errorButtonBackgroundColor: Int,
                          var useErrorButton: Boolean,
                          var progressDrawable: Drawable?,
+                         var useProgressBackground: Boolean,
+                         var progressBackgroundColor: Int,
+                         var isShowProgressWhenContentState: Boolean,
                          var isLargeProgress: Boolean,
                          var defaultState: Chameleon.STATE
 )

@@ -3,4 +3,5 @@
     <color name="colorRetryText">#FF5252</color>
     <color name="colorTitleText">#808080</color>
     <color name="colorSubText">#b7b7b7</color>
+    <color name="colorLoadingBackground">#66333333</color>
 </resources>
