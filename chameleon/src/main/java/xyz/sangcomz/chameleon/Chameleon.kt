@@ -19,7 +19,9 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import xyz.sangcomz.chameleon.ext.DP
 import xyz.sangcomz.chameleon.ext.getDrawable
+import xyz.sangcomz.chameleon.model.ButtonSettingBundle
 import xyz.sangcomz.chameleon.model.ChameleonAttr
+import xyz.sangcomz.chameleon.model.TextSettingBundle
 
 /**
  * Created by sangcomz on 12/02/2018.
@@ -280,24 +282,38 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         super.addView(stateButton, layoutParams)
     }
 
-    fun showState(state: STATE) {
+    fun showState(state: STATE,
+                  customDrawable: Drawable? = null,
+                  titleTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                  subTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                  buttonSettingBundle: ButtonSettingBundle = ButtonSettingBundle()) {
         when (state) {
             STATE.CONTENT -> {
                 setViewVisibility(View.VISIBLE)
             }
             STATE.ERROR -> {
                 chameleonAttr?.let {
-                    setStateImageView(it.errorDrawable
+                    val errorDrawable = customDrawable ?: it.errorDrawable
+                    setStateImageView(errorDrawable
                             ?: R.drawable.ic_chameleon_error.getDrawable(context))
-                    setStateTitleTextView(it.errorText, it.errorTextSize, it.errorTextColor, it.errorTextGravity)
-                    setStateSubTextView(it.errorSubText, it.errorSubTextSize, it.errorSubTextColor, it.errorSubTextGravity)
+
+                    setStateTitleTextView(titleTextSettingBundle.text ?: it.errorText,
+                            titleTextSettingBundle.textSize ?: it.errorTextSize,
+                            titleTextSettingBundle.textColor ?: it.errorTextColor,
+                            titleTextSettingBundle.textGravity ?: it.errorTextGravity)
+
+                    setStateSubTextView(subTextSettingBundle.text ?: it.errorSubText,
+                            subTextSettingBundle.textSize ?: it.errorSubTextSize,
+                            subTextSettingBundle.textColor ?: it.errorSubTextColor,
+                            subTextSettingBundle.textGravity ?: it.errorSubTextGravity)
 
                     if (it.useErrorButton)
-                        setStateButton(it.errorButtonText,
-                                it.errorButtonTextSize,
-                                it.errorButtonTextColor,
-                                it.errorButtonBackgroundColor,
-                                errorButtonListener)
+                        setStateButton(buttonSettingBundle.text ?: it.errorButtonText,
+                                buttonSettingBundle.textSize ?: it.errorButtonTextSize,
+                                buttonSettingBundle.textColor ?: it.errorButtonTextColor,
+                                buttonSettingBundle.backgroundColor
+                                        ?: it.errorButtonBackgroundColor,
+                                buttonSettingBundle.listener ?: errorButtonListener)
 
                     setViewVisibility(imageViewVisible = View.VISIBLE,
                             titleViewVisible = View.VISIBLE,
@@ -310,16 +326,27 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             }
             STATE.EMPTY -> {
                 chameleonAttr?.let {
-                    setStateImageView(it.emptyDrawable
+                    val emptyDrawable = customDrawable ?: it.emptyDrawable
+                    setStateImageView(emptyDrawable
                             ?: R.drawable.ic_chameleon_empty.getDrawable(context))
-                    setStateTitleTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor, it.emptyTextGravity)
-                    setStateSubTextView(it.emptySubText, it.emptySubTextSize, it.emptySubTextColor, it.emptySubTextGravity)
+
+                    setStateTitleTextView(titleTextSettingBundle.text ?: it.emptyText,
+                            titleTextSettingBundle.textSize ?: it.emptyTextSize,
+                            titleTextSettingBundle.textColor ?: it.emptyTextColor,
+                            titleTextSettingBundle.textGravity ?: it.emptyTextGravity)
+
+                    setStateSubTextView(subTextSettingBundle.text ?: it.emptySubText,
+                            subTextSettingBundle.textSize ?: it.emptySubTextSize,
+                            subTextSettingBundle.textColor ?: it.emptySubTextColor,
+                            subTextSettingBundle.textGravity ?: it.emptySubTextGravity)
+
                     if (it.useEmptyButton)
-                        setStateButton(it.emptyButtonText,
-                                it.emptyButtonTextSize,
-                                it.emptyButtonTextColor,
-                                it.emptyButtonBackgroundColor,
-                                emptyButtonListener)
+                        setStateButton(buttonSettingBundle.text ?: it.emptyButtonText,
+                                buttonSettingBundle.textSize ?: it.emptyButtonTextSize,
+                                buttonSettingBundle.textColor ?: it.emptyButtonTextColor,
+                                buttonSettingBundle.backgroundColor
+                                        ?: it.emptyButtonBackgroundColor,
+                                buttonSettingBundle.listener ?: emptyButtonListener)
 
                     setViewVisibility(imageViewVisible = View.VISIBLE,
                             titleViewVisible = View.VISIBLE,
