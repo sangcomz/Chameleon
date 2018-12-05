@@ -38,7 +38,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         CONTENT
     }
 
-    private var stateContentView: RecyclerView? = null
+    private var stateContentView: View? = null
     private var stateImageView: AppCompatImageView? = null
     private var stateTitleTextView: AppCompatTextView? = null
     private var stateSubTextView: AppCompatTextView? = null
@@ -184,9 +184,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             throw  IllegalStateException("Chameleon can host only one direct child")
         }
         child?.let {
-            if (it !is RecyclerView)
-                throw  IllegalStateException("Chameleon can only have RecyclerView as a child.")
-
             stateContentView = it
         }
 
@@ -386,7 +383,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun getState(): STATE = currentState
 
-    fun hasNoContent(): Boolean = stateContentView?.adapter?.itemCount == 0
+    fun hasNoContent(): Boolean {
+        return (stateContentView as? RecyclerView)?.adapter?.itemCount == 0
+    }
 
     private fun setViewVisibility(contentViewVisible: Int = View.GONE,
                                   imageViewVisible: Int = View.GONE,
