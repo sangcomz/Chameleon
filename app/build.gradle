@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.triplet.play'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
 android {
     signingConfigs {
         if (project.rootProject.file('release/sign.properties').exists()) {
@@ -9,7 +9,7 @@ android {
             signProp.load(project.rootProject.file('release/sign.properties').newDataInputStream())
             config {
                 keyAlias signProp.get("alias") ? signProp.get("alias") : ""
-                keyPassword signProp.get("alias_password") ? signProp.get("alias_password") : ""
+                keyPassword signProp.get("password") ? signProp.get("password") : ""
                 storeFile rootProject.file("release/key.jks")
                 storePassword signProp.get("password") ? signProp.get("password") : ""
                 v2SigningEnabled true
@@ -39,6 +39,12 @@ android {
         debug {
         }
     }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            output.outputFileName = outputFile.name.replace('.apk', "-${versionName}.apk").replace('app-', "chameleon-")
+        }
+    }
 }
 
 dependencies {
@@ -47,9 +53,16 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'xyz.sangcomz:dalcomz:0.0.4'
+    //rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':chameleon')
+}
+
+play {
+    jsonFile = file('play_key.json')
+    track = 'beta' // Or any of 'rollout', 'beta', 'alpha' or 'internal'
 }

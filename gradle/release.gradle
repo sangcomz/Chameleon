@@ -1,0 +1,21 @@
+Properties properties = new Properties()
+
+if(project.rootProject.file('local.properties').isFile()){
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+}
+
+github {
+    owner = 'sangcomz'
+    repo = 'Chameleon'
+    token = properties.getProperty("github_access_tokens", ' ')
+    tagName = 'v' + gradle.versionName
+    targetCommitish = 'master'
+    body = """## Release Note
+* Test Release"""
+    name = 'r' + gradle.versionName
+    assets = [
+            'app/build/outputs/apk/debug/chameleon-debug-' + gradle.versionName + '.apk',
+            'app/build/outputs/apk/release/chameleon-release-' + gradle.versionName + '.apk',
+            'app/build/outputs/mapping/prod/release/mapping.txt'
+    ]
+}
