@@ -9,8 +9,8 @@
 Chameleon deals with the Status of RecyclerView.
 
 ## What's New in 0.1.1? :tada:
-- #7
-- #6
+- [New Feature] change text and icons dynamically
+- [New Feature] Chameleon is available in all views
 
 ## How to Use
 
@@ -21,7 +21,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.1.0'
+        compile 'com.github.sangcomz:Chameleon:v0.1.1'
     }
 ```
 ### Usage
