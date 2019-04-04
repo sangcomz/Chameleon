@@ -1,17 +1,29 @@
 package xyz.sangcomz.chameleon.ext
 
+import android.graphics.drawable.Drawable
 import xyz.sangcomz.chameleon.Chameleon
+import xyz.sangcomz.chameleon.model.TextSettingBundle
 
-fun Chameleon.setError() {
-    this.showState(Chameleon.STATE.ERROR)
+fun Chameleon.setError(drawable: Drawable? = null,
+                       titleTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                       subTextSettingBundle: TextSettingBundle = TextSettingBundle()) {
+    this.showState(Chameleon.STATE.ERROR,
+            drawable,
+            titleTextSettingBundle,
+            subTextSettingBundle)
 }
 
 fun Chameleon.setLoading() {
     this.showState(Chameleon.STATE.LOADING)
 }
 
-fun Chameleon.setEmpty() {
-    this.showState(Chameleon.STATE.EMPTY)
+fun Chameleon.setEmpty(drawable: Drawable? = null,
+                       titleTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                       subTextSettingBundle: TextSettingBundle = TextSettingBundle()) {
+    this.showState(Chameleon.STATE.EMPTY,
+            drawable,
+            titleTextSettingBundle,
+            subTextSettingBundle)
 }
 
 fun Chameleon.setContent() {

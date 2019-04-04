@@ -18,12 +18,16 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import xyz.sangcomz.chameleon.ext.DP
 import xyz.sangcomz.chameleon.ext.getDrawable
+import xyz.sangcomz.chameleon.model.ButtonSettingBundle
 import xyz.sangcomz.chameleon.model.ChameleonAttr
+import xyz.sangcomz.chameleon.model.TextSettingBundle
 
 /**
  * Created by sangcomz on 12/02/2018.
@@ -38,11 +42,12 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         CONTENT
     }
 
-    private var stateContentView: RecyclerView? = null
+    private var stateContentView: View? = null
     private var stateImageView: AppCompatImageView? = null
     private var stateTitleTextView: AppCompatTextView? = null
     private var stateSubTextView: AppCompatTextView? = null
-    private var stateProgressBar: ProgressBar? = null
+    private var stateProgressLayout: FrameLayout? = null
+    //    private var stateProgressBar: ProgressBar? = null
     private var stateButton: AppCompatButton? = null
     private var errorButtonListener: ((View) -> Unit)? = null
     private var emptyButtonListener: ((View) -> Unit)? = null
@@ -90,6 +95,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getColor(R.styleable.Chameleon_errorButtonBackgroundColor, ContextCompat.getColor(context, R.color.colorTitleText)),
                                 it.getBoolean(R.styleable.Chameleon_useErrorButton, false),
                                 it.getDrawable(R.styleable.Chameleon_progressDrawable),
+                                it.getBoolean(R.styleable.Chameleon_useProgressBackground, false),
+                                it.getColor(R.styleable.Chameleon_progressBackgroundColor, ContextCompat.getColor(context, R.color.colorLoadingBackground)),
+                                it.getBoolean(R.styleable.Chameleon_isShowContentWhenLoadingState, false),
                                 it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
                                 stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1))
                         )
@@ -180,9 +188,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             throw  IllegalStateException("Chameleon can host only one direct child")
         }
         child?.let {
-            if (it !is RecyclerView)
-                throw  IllegalStateException("Chameleon can only have RecyclerView as a child.")
-
             stateContentView = it
         }
 
@@ -239,7 +244,15 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateProgressBar(attr: ChameleonAttr) {
-        stateProgressBar =
+        stateProgressLayout = FrameLayout(context)
+        stateProgressLayout?.apply {
+            id = R.id.pb_state
+            if (attr.useProgressBackground)
+                setBackgroundColor(attr.progressBackgroundColor)
+//            setBackgroundColor(Color.TRANSPARENT)
+            visibility = View.GONE
+        }
+        val stateProgressBar =
                 if (attr.isLargeProgress)
                     ProgressBar(context,
                             null,
@@ -247,20 +260,20 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 else
                     ProgressBar(context)
 
-        stateProgressBar?.apply {
-            id = R.id.pb_state
+        stateProgressBar.apply {
+            //            id = R.id.pb_state
             chameleonAttr?.progressDrawable?.let {
                 indeterminateDrawable = it
             }
-            visibility = View.GONE
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val progressBarLayoutParams = FrameLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topToTop = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID
-        super.addView(stateProgressBar, layoutParams)
+        progressBarLayoutParams.gravity = CENTER
+
+        stateProgressLayout?.addView(stateProgressBar, progressBarLayoutParams)
+        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT)
+        super.addView(stateProgressLayout, layoutParams)
     }
 
 
@@ -284,24 +297,38 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         super.addView(stateButton, layoutParams)
     }
 
-    fun showState(state: STATE) {
+    fun showState(state: STATE,
+                  customDrawable: Drawable? = null,
+                  titleTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                  subTextSettingBundle: TextSettingBundle = TextSettingBundle(),
+                  buttonSettingBundle: ButtonSettingBundle = ButtonSettingBundle()) {
         when (state) {
             STATE.CONTENT -> {
                 setViewVisibility(View.VISIBLE)
             }
             STATE.ERROR -> {
                 chameleonAttr?.let {
-                    setStateImageView(it.errorDrawable
+                    val errorDrawable = customDrawable ?: it.errorDrawable
+                    setStateImageView(errorDrawable
                             ?: R.drawable.ic_chameleon_error.getDrawable(context))
-                    setStateTitleTextView(it.errorText, it.errorTextSize, it.errorTextColor, it.errorTextGravity)
-                    setStateSubTextView(it.errorSubText, it.errorSubTextSize, it.errorSubTextColor, it.errorSubTextGravity)
+
+                    setStateTitleTextView(titleTextSettingBundle.text ?: it.errorText,
+                            titleTextSettingBundle.textSize ?: it.errorTextSize,
+                            titleTextSettingBundle.textColor ?: it.errorTextColor,
+                            titleTextSettingBundle.textGravity ?: it.errorTextGravity)
+
+                    setStateSubTextView(subTextSettingBundle.text ?: it.errorSubText,
+                            subTextSettingBundle.textSize ?: it.errorSubTextSize,
+                            subTextSettingBundle.textColor ?: it.errorSubTextColor,
+                            subTextSettingBundle.textGravity ?: it.errorSubTextGravity)
 
                     if (it.useErrorButton)
-                        setStateButton(it.errorButtonText,
-                                it.errorButtonTextSize,
-                                it.errorButtonTextColor,
-                                it.errorButtonBackgroundColor,
-                                errorButtonListener)
+                        setStateButton(buttonSettingBundle.text ?: it.errorButtonText,
+                                buttonSettingBundle.textSize ?: it.errorButtonTextSize,
+                                buttonSettingBundle.textColor ?: it.errorButtonTextColor,
+                                buttonSettingBundle.backgroundColor
+                                        ?: it.errorButtonBackgroundColor,
+                                buttonSettingBundle.listener ?: errorButtonListener)
 
                     setViewVisibility(imageViewVisible = View.VISIBLE,
                             titleViewVisible = View.VISIBLE,
@@ -310,20 +337,38 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 }
             }
             STATE.LOADING -> {
-                setViewVisibility(progressViewVisible = View.VISIBLE)
+                chameleonAttr?.let {
+                    setViewVisibility(progressViewVisible = View.VISIBLE,
+                            contentViewVisible = if (it.isShowProgressWhenContentState
+                                    && (currentState == STATE.CONTENT))
+                                View.VISIBLE
+                            else
+                                View.GONE)
+                }
             }
             STATE.EMPTY -> {
                 chameleonAttr?.let {
-                    setStateImageView(it.emptyDrawable
+                    val emptyDrawable = customDrawable ?: it.emptyDrawable
+                    setStateImageView(emptyDrawable
                             ?: R.drawable.ic_chameleon_empty.getDrawable(context))
-                    setStateTitleTextView(it.emptyText, it.emptyTextSize, it.emptyTextColor, it.emptyTextGravity)
-                    setStateSubTextView(it.emptySubText, it.emptySubTextSize, it.emptySubTextColor, it.emptySubTextGravity)
+
+                    setStateTitleTextView(titleTextSettingBundle.text ?: it.emptyText,
+                            titleTextSettingBundle.textSize ?: it.emptyTextSize,
+                            titleTextSettingBundle.textColor ?: it.emptyTextColor,
+                            titleTextSettingBundle.textGravity ?: it.emptyTextGravity)
+
+                    setStateSubTextView(subTextSettingBundle.text ?: it.emptySubText,
+                            subTextSettingBundle.textSize ?: it.emptySubTextSize,
+                            subTextSettingBundle.textColor ?: it.emptySubTextColor,
+                            subTextSettingBundle.textGravity ?: it.emptySubTextGravity)
+
                     if (it.useEmptyButton)
-                        setStateButton(it.emptyButtonText,
-                                it.emptyButtonTextSize,
-                                it.emptyButtonTextColor,
-                                it.emptyButtonBackgroundColor,
-                                emptyButtonListener)
+                        setStateButton(buttonSettingBundle.text ?: it.emptyButtonText,
+                                buttonSettingBundle.textSize ?: it.emptyButtonTextSize,
+                                buttonSettingBundle.textColor ?: it.emptyButtonTextColor,
+                                buttonSettingBundle.backgroundColor
+                                        ?: it.emptyButtonBackgroundColor,
+                                buttonSettingBundle.listener ?: emptyButtonListener)
 
                     setViewVisibility(imageViewVisible = View.VISIBLE,
                             titleViewVisible = View.VISIBLE,
@@ -342,7 +387,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun getState(): STATE = currentState
 
-    fun hasNoContent(): Boolean = stateContentView?.adapter?.itemCount == 0
+    fun hasNoContent(): Boolean {
+        return (stateContentView as? RecyclerView)?.adapter?.itemCount == 0
+    }
 
     private fun setViewVisibility(contentViewVisible: Int = View.GONE,
                                   imageViewVisible: Int = View.GONE,
@@ -354,7 +401,10 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         stateImageView?.visibility = imageViewVisible
         stateTitleTextView?.visibility = titleViewVisible
         stateSubTextView?.visibility = subViewVisible
-        stateProgressBar?.visibility = progressViewVisible
+
+        stateProgressLayout?.visibility = progressViewVisible
+        if (progressViewVisible == View.VISIBLE) stateProgressLayout?.bringToFront()
+
         stateButton?.visibility = retryViewVisible
     }
 

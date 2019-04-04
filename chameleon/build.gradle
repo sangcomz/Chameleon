@@ -1,8 +1,11 @@
+
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'co.riiid.gradle'
 
-group='com.github.sangcomz'
+group = 'com.github.sangcomz'
 
 android {
     compileSdkVersion gradle.compileSdk
@@ -15,6 +18,8 @@ android {
         vectorDrawables.useSupportLibrary true
     }
 }
+
+apply from: '../gradle/release.gradle'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

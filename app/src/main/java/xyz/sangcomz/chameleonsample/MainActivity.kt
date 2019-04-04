@@ -1,6 +1,7 @@
 package xyz.sangcomz.chameleonsample
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +11,8 @@ import android.widget.Toast
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import xyz.sangcomz.chameleon.Chameleon
+import xyz.sangcomz.chameleon.model.ButtonSettingBundle
+import xyz.sangcomz.chameleon.model.TextSettingBundle
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -60,10 +63,17 @@ class MainActivity : AppCompatActivity() {
                 root.showState(Chameleon.STATE.LOADING)
             }
             R.id.menu_empty -> {
-                root.showState(Chameleon.STATE.EMPTY)
+                root.showState(Chameleon.STATE.EMPTY,
+                        ContextCompat.getDrawable(this, R.drawable.ic_chameleon_red))
             }
             R.id.menu_error -> {
-                root.showState(Chameleon.STATE.ERROR)
+                root.showState(Chameleon.STATE.ERROR,
+                        ContextCompat.getDrawable(this, R.drawable.ic_chameleon_blue),
+                        TextSettingBundle("Error Bundle Title"),
+                        TextSettingBundle("Error Bundle Content"),
+                        ButtonSettingBundle("Error Bundle Button", listener = {
+                            Toast.makeText(this, "Custom Action", Toast.LENGTH_SHORT).show()
+                        }))
             }
         }
         return super.onOptionsItemSelected(item)
