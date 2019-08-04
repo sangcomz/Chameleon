@@ -1,10 +1,10 @@
 package xyz.sangcomz.chameleonsample
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -27,8 +27,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setChameleonList() {
         rv_main_list.adapter = ChameleonAdapter()
-        rv_main_list.layoutManager = LinearLayoutManager(this)
-        rv_main_list.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+        rv_main_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+        rv_main_list.addItemDecoration(
+            androidx.recyclerview.widget.DividerItemDecoration(
+                this,
+                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
+            )
+        )
         getChameleons()
                 .delay(5000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())

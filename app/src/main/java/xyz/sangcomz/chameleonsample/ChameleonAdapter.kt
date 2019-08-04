@@ -1,8 +1,8 @@
 package xyz.sangcomz.chameleonsample
 
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by sangcomz on 27/03/2018.
  */
-class ChameleonAdapter : RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
+class ChameleonAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
     private var chameleonList: List<Chameleon> = arrayListOf()
 
     fun setChameleonList(chameleonList: List<Chameleon>) {
@@ -32,7 +32,7 @@ class ChameleonAdapter : RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
         private val ivItemChameleon = itemView.findViewById<AppCompatImageView>(R.id.iv_item_chameleon)
         private val tvItemChameleon = itemView.findViewById<AppCompatTextView>(R.id.tv_item_chameleon)
