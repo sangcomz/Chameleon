@@ -3,14 +3,14 @@ package xyz.sangcomz.chameleon
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintSet
-import android.support.constraint.ConstraintSet.*
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
-import android.support.v7.widget.RecyclerView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.ConstraintSet.*
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -199,7 +199,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         if (background is AnimationDrawable) {
             background.start()
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
@@ -216,7 +217,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
@@ -232,7 +234,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
@@ -262,12 +265,14 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 indeterminateDrawable = it
             }
         }
-        val progressBarLayoutParams = FrameLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val progressBarLayoutParams = FrameLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
         progressBarLayoutParams.gravity = CENTER
 
         stateProgressLayout?.addView(stateProgressBar, progressBarLayoutParams)
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
                 ConstraintLayout.LayoutParams.MATCH_PARENT)
         super.addView(stateProgressLayout, layoutParams)
     }
@@ -286,7 +291,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             visibility = View.GONE
         }
-        val layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.WRAP_CONTENT,
                 ConstraintLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
@@ -384,7 +390,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     fun getState(): STATE = currentState
 
     fun hasNoContent(): Boolean {
-        return (stateContentView as? RecyclerView)?.adapter?.itemCount == 0
+        return (stateContentView as? androidx.recyclerview.widget.RecyclerView)?.adapter?.itemCount == 0
     }
 
     private fun setViewVisibility(contentViewVisible: Int = View.GONE,
