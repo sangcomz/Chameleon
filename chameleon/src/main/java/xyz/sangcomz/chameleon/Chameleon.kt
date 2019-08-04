@@ -95,7 +95,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                                 it.getColor(R.styleable.Chameleon_progressBackgroundColor, ContextCompat.getColor(context, R.color.colorLoadingBackground)),
                                 it.getBoolean(R.styleable.Chameleon_isShowContentWhenLoadingState, false),
                                 it.getBoolean(R.styleable.Chameleon_isLargeProgress, false),
-                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultState, -1))
+                                stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1))
                         )
             }
 
