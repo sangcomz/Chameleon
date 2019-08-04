@@ -8,9 +8,8 @@
 
 Chameleon deals with the Status of RecyclerView.
 
-## What's New in 0.1.1? :tada:
-- [New Feature] change text and icons dynamically
-- [New Feature] Chameleon is available in all views
+## What's New in 0.1.2? :tada:
+- [Bug] change `defaultState` -> `defaultChameleonState` (#14)
 
 ## How to Use
 
@@ -21,7 +20,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.1.1'
+        compile 'com.github.sangcomz:Chameleon:v0.1.2'
     }
 ```
 ### Usage
@@ -133,7 +132,7 @@ chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $old
 |       useErrorButton       | Change whether to use error view Button   |        false        |
 |      progressDrawable      | progress drawable setting                 |          -          |
 |       isLargeProgress      | Whether to use large progress             |        false        |
-|        defaultState        | Sets the initial state for Chameleon      |         NONE        |
+|   defaultChameleonState    | Sets the initial state for Chameleon      |         NONE        |
 
 Note - A state of `NONE` means Chameleon won't do anything, and will just show the RecyclerView.
 
