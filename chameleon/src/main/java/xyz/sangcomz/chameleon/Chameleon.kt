@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.*
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import xyz.sangcomz.chameleon.ext.DP
 import xyz.sangcomz.chameleon.ext.getDrawable
 import xyz.sangcomz.chameleon.model.ButtonSettingBundle
@@ -158,7 +159,10 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                         it.getDimension(
                             R.styleable.Chameleon_ButtonTopMargin,
                             16.DP(context)
-                        )
+                        ),
+                        it.getResourceId(R.styleable.Chameleon_titleFontFamily, -1),
+                        it.getResourceId(R.styleable.Chameleon_subTitleFontFamily, -1),
+                        it.getResourceId(R.styleable.Chameleon_buttonFontFamily, -1)
                     )
                 it.recycle()
             }
@@ -206,8 +210,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     private fun addStateView() {
         chameleonAttr?.let {
             initStateImageViewView()
-            initStateTitleTextView()
-            initStateSubTextView()
+            initStateTitleTextView(it)
+            initStateSubTextView(it)
             initStateButton(it)
             initStateProgressBar(it)
 
@@ -284,17 +288,17 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         if (background is AnimationDrawable) {
             background.start()
         }
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         )
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.verticalChainStyle = ConstraintLayout.LayoutParams.CHAIN_PACKED
+        layoutParams.startToStart = LayoutParams.PARENT_ID
+        layoutParams.endToEnd = LayoutParams.PARENT_ID
+        layoutParams.verticalChainStyle = LayoutParams.CHAIN_PACKED
         super.addView(stateImageView, layoutParams)
     }
 
-    private fun initStateTitleTextView() {
+    private fun initStateTitleTextView(attr: ChameleonAttr) {
         val padding = 32.DP(context).toInt()
         stateTitleTextView = AppCompatTextView(context)
         stateTitleTextView?.apply {
@@ -302,17 +306,19 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setPadding(padding, 0, padding, 0)
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
+            if (attr.titleFontFamily != -1)
+                typeface = ResourcesCompat.getFont(this.context, attr.titleFontFamily)
         }
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         )
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.startToStart = LayoutParams.PARENT_ID
+        layoutParams.endToEnd = LayoutParams.PARENT_ID
         super.addView(stateTitleTextView, layoutParams)
     }
 
-    private fun initStateSubTextView() {
+    private fun initStateSubTextView(attr: ChameleonAttr) {
         val padding = 32.DP(context).toInt()
         stateSubTextView = AppCompatTextView(context)
         stateSubTextView?.apply {
@@ -320,13 +326,15 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setPadding(padding, 0, padding, 0)
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
+            if (attr.subTitleFontFamily != -1)
+                typeface = ResourcesCompat.getFont(this.context, attr.subTitleFontFamily)
         }
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         )
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.startToStart = LayoutParams.PARENT_ID
+        layoutParams.endToEnd = LayoutParams.PARENT_ID
         super.addView(stateSubTextView, layoutParams)
     }
 
@@ -356,15 +364,15 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             }
         }
         val progressBarLayoutParams = FrameLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         )
         progressBarLayoutParams.gravity = CENTER
 
         stateProgressLayout?.addView(stateProgressBar, progressBarLayoutParams)
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.MATCH_PARENT
+        val layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.MATCH_PARENT
         )
         super.addView(stateProgressLayout, layoutParams)
     }
@@ -382,13 +390,15 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             ellipsize = TextUtils.TruncateAt.END
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             visibility = View.GONE
+            if (attr.buttonFontFamily != -1)
+                typeface = ResourcesCompat.getFont(this.context, attr.buttonFontFamily)
         }
-        val layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.WRAP_CONTENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
         )
-        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.startToStart = LayoutParams.PARENT_ID
+        layoutParams.endToEnd = LayoutParams.PARENT_ID
         super.addView(stateButton, layoutParams)
     }
 

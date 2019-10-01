@@ -42,5 +42,8 @@ data class ChameleonAttr(var emptyText: String,
                          var defaultState: Chameleon.STATE,
                          var stateImageBottomMargin:Float,
                          var subTitleTextTopMargin:Float,
-                         var buttonTopMargin:Float
+                         var buttonTopMargin:Float,
+                         val titleFontFamily:Int,
+                         val subTitleFontFamily:Int,
+                         val buttonFontFamily:Int
 )
