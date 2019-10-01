@@ -39,5 +39,8 @@ data class ChameleonAttr(var emptyText: String,
                          var progressBackgroundColor: Int,
                          var isShowProgressWhenContentState: Boolean,
                          var isLargeProgress: Boolean,
-                         var defaultState: Chameleon.STATE
+                         var defaultState: Chameleon.STATE,
+                         var stateImageBottomMargin:Float,
+                         var subTitleTextTopMargin:Float,
+                         var buttonTopMargin:Float
 )
