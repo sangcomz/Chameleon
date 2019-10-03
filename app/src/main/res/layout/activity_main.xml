@@ -5,6 +5,9 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:ButtonTopMargin="4dp"
+    app:SubTitleTextTopMargin="16dp"
+    app:buttonFontFamily="@font/bmjua_otf"
     app:defaultChameleonState="LOADING"
     app:emptyButtonBackgroundColor="@color/colorPrimary"
     app:emptyButtonText="+Add Chameleon"
@@ -26,6 +29,9 @@
     app:isShowContentWhenLoadingState="true"
     app:progressBackgroundColor="#66ff0000"
     app:progressDrawable="@drawable/drawable_progress"
+    app:stateImageBottomMargin="24dp"
+    app:subTitleFontFamily="@font/bmjua_otf"
+    app:titleFontFamily="@font/bmjua_otf"
     app:useEmptyButton="true"
     app:useErrorButton="true"
     app:useProgressBackground="true"
@@ -35,5 +41,5 @@
         android:id="@+id/rv_main_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 </xyz.sangcomz.chameleon.Chameleon>
+
