@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
  * Created by sangcomz on 27/03/2018.
  */
 class ChameleonAdapter :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ChameleonAdapter.ViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ChameleonAdapter.ChameleonViewHolder>() {
     private var chameleonList: List<Chameleon> = arrayListOf()
 
     fun setChameleonList(chameleonList: List<Chameleon>) {
@@ -19,26 +19,26 @@ class ChameleonAdapter :
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChameleonViewHolder {
+        return ChameleonViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_chamelon, parent, false)
         )
     }
 
     override fun getItemCount(): Int = chameleonList.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ChameleonViewHolder, position: Int) {
         holder.setItem(chameleonList[position])
     }
 
 
-    class ViewHolder(itemView: View) :
+    inner class ChameleonViewHolder(itemView: View) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
 
-        private val ivItemChameleon =
-            itemView.findViewById<AppCompatImageView>(R.id.iv_item_chameleon)
-        private val tvItemChameleon =
-            itemView.findViewById<AppCompatTextView>(R.id.tv_item_chameleon)
+        private val ivItemChameleon: AppCompatImageView =
+            itemView.findViewById(R.id.iv_item_chameleon)
+        private val tvItemChameleon: AppCompatTextView =
+            itemView.findViewById(R.id.tv_item_chameleon)
 
         fun setItem(chameleon: Chameleon) {
             Picasso.get()
