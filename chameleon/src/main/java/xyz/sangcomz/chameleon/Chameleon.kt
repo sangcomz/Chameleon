@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.constraintlayout.widget.ConstraintSet.*
+import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import xyz.sangcomz.chameleon.ext.DP
@@ -38,12 +39,12 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         CONTENT
     }
 
+    private val stateContentGroup: Group = Group(context).apply { id = R.id.group_content_state }
     private var stateContentView: View? = null
     private var stateImageView: AppCompatImageView? = null
     private var stateTitleTextView: AppCompatTextView? = null
     private var stateSubTextView: AppCompatTextView? = null
     private var stateProgressLayout: FrameLayout? = null
-    //    private var stateProgressBar: ProgressBar? = null
     private var stateButton: AppCompatButton? = null
     private var errorButtonListener: ((View) -> Unit)? = null
     private var emptyButtonListener: ((View) -> Unit)? = null
@@ -167,6 +168,8 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 it.recycle()
             }
         }
+        super.addView(stateContentGroup)
+        initStateView()
     }
 
     /**
@@ -188,26 +191,26 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     override fun addView(child: View?) {
-        checkValid(child)
+        addContentView(child)
         super.addView(child)
     }
 
     override fun addView(child: View?, index: Int) {
-        checkValid(child)
+        addContentView(child)
         super.addView(child, index)
     }
 
     override fun addView(child: View?, width: Int, height: Int) {
-        checkValid(child)
+        addContentView(child)
         super.addView(child, width, height)
     }
 
     override fun addView(child: View?, params: ViewGroup.LayoutParams?) {
-        checkValid(child)
+        addContentView(child)
         super.addView(child, params)
     }
 
-    private fun addStateView() {
+    private fun initStateView() {
         chameleonAttr?.let {
             initStateImageViewView()
             initStateTitleTextView(it)
@@ -268,15 +271,18 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
 
-    private fun checkValid(child: View?) {
-        if (childCount > 0) {
-            throw  IllegalStateException("Chameleon can host only one direct child")
+    private fun addContentView(child: View?) {
+        child?.let { view ->
+            stateContentGroup.referencedIds =
+                stateContentGroup
+                    .referencedIds
+                    .run {
+                        copyOf(size + 1)
+                    }
+                    .apply {
+                        set(stateContentGroup.referencedIds.size, view.id)
+                    }
         }
-        child?.let {
-            stateContentView = it
-        }
-
-        addStateView()
     }
 
     private fun initStateImageViewView() {
@@ -306,7 +312,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setPadding(padding, 0, padding, 0)
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
-            if (attr.titleFontFamily != -1)
+            if (attr.titleFontFamily != -1 && !isInEditMode)
                 typeface = ResourcesCompat.getFont(this.context, attr.titleFontFamily)
         }
         val layoutParams = LayoutParams(
@@ -326,7 +332,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             setPadding(padding, 0, padding, 0)
             ellipsize = TextUtils.TruncateAt.END
             visibility = View.GONE
-            if (attr.subTitleFontFamily != -1)
+            if (attr.subTitleFontFamily != -1 && !isInEditMode)
                 typeface = ResourcesCompat.getFont(this.context, attr.subTitleFontFamily)
         }
         val layoutParams = LayoutParams(
@@ -344,9 +350,9 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             id = R.id.pb_state
             if (attr.useProgressBackground)
                 setBackgroundColor(attr.progressBackgroundColor)
-//            setBackgroundColor(Color.TRANSPARENT)
             visibility = View.GONE
         }
+
         val stateProgressBar =
             if (attr.isLargeProgress)
                 ProgressBar(
@@ -358,7 +364,6 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                 ProgressBar(context)
 
         stateProgressBar.apply {
-            //            id = R.id.pb_state
             chameleonAttr?.progressDrawable?.let {
                 indeterminateDrawable = it
             }
@@ -390,7 +395,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
             ellipsize = TextUtils.TruncateAt.END
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
             visibility = View.GONE
-            if (attr.buttonFontFamily != -1)
+            if (attr.buttonFontFamily != -1 && !isInEditMode)
                 typeface = ResourcesCompat.getFont(this.context, attr.buttonFontFamily)
         }
         val layoutParams = LayoutParams(
@@ -517,9 +522,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun getState(): STATE = currentState
 
-    fun hasNoContent(): Boolean {
-        return (stateContentView as? androidx.recyclerview.widget.RecyclerView)?.adapter?.itemCount == 0
-    }
+    fun hasNoContent() = stateContentGroup.referencedIds.isEmpty()
 
     private fun setViewVisibility(
         contentViewVisible: Int = View.GONE,
@@ -529,7 +532,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         progressViewVisible: Int = View.GONE,
         retryViewVisible: Int = View.GONE
     ) {
-        stateContentView?.visibility = contentViewVisible
+        stateContentGroup.visibility = contentViewVisible
         stateImageView?.visibility = imageViewVisible
         stateTitleTextView?.visibility = titleViewVisible
         stateSubTextView?.visibility = subViewVisible
