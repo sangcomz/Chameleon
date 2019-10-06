@@ -17,37 +17,38 @@ import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
+    private val mChameleonAdapter: ChameleonAdapter by lazy { ChameleonAdapter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        root.setEmptyButtonClickListener { Toast.makeText(this, "Empty Button!", Toast.LENGTH_LONG).show() }
-        root.setErrorButtonClickListener { Toast.makeText(this, "Error Button!", Toast.LENGTH_LONG).show() }
+        root.apply {
+            setEmptyButtonClickListener { Toast.makeText(this@MainActivity, "Empty Button!", Toast.LENGTH_LONG).show() }
+            setErrorButtonClickListener { Toast.makeText(this@MainActivity, "Error Button!", Toast.LENGTH_LONG).show() }
+            setStateChangeListener { newState, oldState ->
+                Toast.makeText(this@MainActivity, "state was $oldState and now is $newState", Toast.LENGTH_LONG).show()
+            }
+        }
         setChameleonList()
     }
 
     private fun setChameleonList() {
-        rv_main_list.adapter = ChameleonAdapter()
-        rv_main_list.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
-        rv_main_list.addItemDecoration(
-            androidx.recyclerview.widget.DividerItemDecoration(
-                this,
-                androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
-            )
-        )
+        rv_main_list.apply {
+            adapter = mChameleonAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+        }
         getChameleons()
                 .delay(5000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            (rv_main_list.adapter as? ChameleonAdapter)?.setChameleonList(it)
+                            mChameleonAdapter.setChameleonList(it)
                             root.showState(Chameleon.STATE.CONTENT)
                         },
                         {
                             root.showState(Chameleon.STATE.ERROR)
                         })
-        root.setStateChangeListener { newState, oldState ->
-            Toast.makeText(this, "state was $oldState and now is $newState", Toast.LENGTH_LONG).show()
-        }
 
     }
 
