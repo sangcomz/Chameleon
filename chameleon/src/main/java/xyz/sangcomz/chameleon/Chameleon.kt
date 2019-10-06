@@ -522,9 +522,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
     fun getState(): STATE = currentState
 
-    fun hasNoContent(): Boolean {
-        return (stateContentView as? androidx.recyclerview.widget.RecyclerView)?.adapter?.itemCount == 0
-    }
+    fun hasNoContent() = stateContentGroup.referencedIds.isEmpty()
 
     private fun setViewVisibility(
         contentViewVisible: Int = View.GONE,
