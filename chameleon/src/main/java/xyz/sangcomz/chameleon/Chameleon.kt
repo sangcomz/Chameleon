@@ -10,6 +10,7 @@ import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageView
@@ -44,7 +45,7 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     private var stateImageView: AppCompatImageView? = null
     private var stateTitleTextView: AppCompatTextView? = null
     private var stateSubTextView: AppCompatTextView? = null
-    private var stateProgressLayout: FrameLayout? = null
+    private var stateProgressLayout: LinearLayout? = null
     private var stateButton: AppCompatButton? = null
     private var errorButtonListener: ((View) -> Unit)? = null
     private var emptyButtonListener: ((View) -> Unit)? = null
@@ -163,14 +164,25 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
                         it.getResourceId(R.styleable.Chameleon_titleFontFamily, -1),
                         it.getResourceId(R.styleable.Chameleon_subTitleFontFamily, -1),
                         it.getResourceId(R.styleable.Chameleon_buttonFontFamily, -1),
-                        true,
                         it.getString(R.styleable.Chameleon_loadingText) ?: "loading",
-                        it.getColor(R.styleable.Chameleon_loadingTextColor, ContextCompat.getColor(context, R.color.colorTitleText)),
-                        it.getDimension(R.styleable.Chameleon_loadingTextSize, context.resources.getDimension(R.dimen.title_text_size)),
+                        it.getColor(
+                            R.styleable.Chameleon_loadingTextColor,
+                            ContextCompat.getColor(context, R.color.colorTitleText)
+                        ),
+                        it.getDimension(
+                            R.styleable.Chameleon_loadingTextSize,
+                            context.resources.getDimension(R.dimen.title_text_size)
+                        ),
                         it.getString(R.styleable.Chameleon_loadingSubText)
                             ?: "now loading...",
-                        it.getColor(R.styleable.Chameleon_loadingSubTextColor, ContextCompat.getColor(context, R.color.colorSubText)),
-                        it.getDimension(R.styleable.Chameleon_loadingSubTextSize, context.resources.getDimension(R.dimen.sub_text_size)),
+                        it.getColor(
+                            R.styleable.Chameleon_loadingSubTextColor,
+                            ContextCompat.getColor(context, R.color.colorSubText)
+                        ),
+                        it.getDimension(
+                            R.styleable.Chameleon_loadingSubTextSize,
+                            context.resources.getDimension(R.dimen.sub_text_size)
+                        ),
                         stateFromInt(it.getInt(R.styleable.Chameleon_defaultChameleonState, -1))
                     )
                 it.recycle()
@@ -276,14 +288,18 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
 
             constraintSet.applyTo(this)
         }
-        val hasLoadingMessage = chameleonAttr?.hasLoadingMessage ?: false
-
         val constraintSet = ConstraintSet()
         constraintSet.clone(this)
 
         constraintSet.connect(R.id.iv_state, TOP, PARENT_ID, TOP)
         constraintSet.connect(R.id.iv_state, START, PARENT_ID, START)
-        constraintSet.connect(R.id.iv_state, BOTTOM, R.id.tv_title_state, TOP, 4.DP(context).toInt())
+        constraintSet.connect(
+            R.id.iv_state,
+            BOTTOM,
+            R.id.tv_title_state,
+            TOP,
+            4.DP(context).toInt()
+        )
         constraintSet.connect(R.id.iv_state, END, PARENT_ID, END)
         constraintSet.setVerticalBias(R.id.iv_state, 1f)
 
@@ -292,7 +308,13 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         constraintSet.connect(R.id.tv_title_state, BOTTOM, PARENT_ID, BOTTOM)
         constraintSet.connect(R.id.tv_title_state, END, PARENT_ID, END)
 
-        constraintSet.connect(R.id.tv_sub_state, TOP, R.id.tv_title_state, BOTTOM, 4.DP(context).toInt())
+        constraintSet.connect(
+            R.id.tv_sub_state,
+            TOP,
+            R.id.tv_title_state,
+            BOTTOM,
+            4.DP(context).toInt()
+        )
         constraintSet.connect(R.id.tv_sub_state, START, PARENT_ID, START)
         constraintSet.connect(R.id.tv_sub_state, END, PARENT_ID, END)
 
@@ -302,11 +324,10 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
         constraintSet.connect(R.id.bt_state, END, PARENT_ID, END)
         constraintSet.setVerticalBias(R.id.bt_state, 0f)
 
-        val constraintID = if (hasLoadingMessage) R.id.iv_state else PARENT_ID
-        constraintSet.connect(R.id.pb_state, TOP, constraintID, TOP)
-        constraintSet.connect(R.id.pb_state, START, constraintID, START)
-        constraintSet.connect(R.id.pb_state, BOTTOM, constraintID, BOTTOM)
-        constraintSet.connect(R.id.pb_state, END, constraintID, END)
+        constraintSet.connect(R.id.pb_state, TOP, PARENT_ID, TOP)
+        constraintSet.connect(R.id.pb_state, START, PARENT_ID, START)
+        constraintSet.connect(R.id.pb_state, BOTTOM, PARENT_ID, BOTTOM)
+        constraintSet.connect(R.id.pb_state, END, PARENT_ID, END)
 
         constraintSet.applyTo(this)
     }
@@ -386,11 +407,12 @@ open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout
     }
 
     private fun initStateProgressBar(attr: ChameleonAttr) {
-        stateProgressLayout = FrameLayout(context)
+        stateProgressLayout = LinearLayout(context)
         stateProgressLayout?.apply {
             id = R.id.pb_state
-            if (attr.useProgressBackground)
-                setBackgroundColor(attr.progressBackgroundColor)
+            gravity = CENTER
+            orientation = LinearLayout.VERTICAL
+            if (attr.useProgressBackground) setBackgroundColor(attr.progressBackgroundColor)
             visibility = View.GONE
         }
 
