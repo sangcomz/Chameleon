@@ -5,6 +5,9 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:ButtonTopMargin="4dp"
+    app:SubTitleTextTopMargin="16dp"
+    app:buttonFontFamily="@font/bmjua_otf"
     app:defaultChameleonState="LOADING"
     app:emptyButtonBackgroundColor="@color/colorPrimary"
     app:emptyButtonText="+Add Chameleon"
@@ -26,14 +29,36 @@
     app:isShowContentWhenLoadingState="true"
     app:progressBackgroundColor="#66ff0000"
     app:progressDrawable="@drawable/drawable_progress"
+    app:stateImageBottomMargin="24dp"
+    app:subTitleFontFamily="@font/bmjua_otf"
+    app:titleFontFamily="@font/bmjua_otf"
     app:useEmptyButton="true"
     app:useErrorButton="true"
-    app:useProgressBackground="true"
-    tools:context="xyz.sangcomz.chameleonsample.MainActivity">
+    app:useProgressBackground="true">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bmjua_otf"
+        android:text="Chameleon List"
+        android:textColor="@color/colorPrimary"
+        android:textSize="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_main_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_main_title" />
 </xyz.sangcomz.chameleon.Chameleon>
+

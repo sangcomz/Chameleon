@@ -5,7 +5,6 @@
         <attr name="emptyText" format="string" />
         <attr name="emptyTextColor" format="color" />
         <attr name="emptyTextSize" format="dimension" />
-
         <attr name="emptySubText" format="string" />
         <attr name="emptySubTextColor" format="color" />
         <attr name="emptySubTextSize" format="dimension" />
@@ -23,7 +22,6 @@
         <attr name="errorSubTextColor" format="color" />
         <attr name="errorSubTextSize" format="dimension" />
         <attr name="errorDrawable" format="reference" />
-
         <attr name="errorButtonText" format="string" />
         <attr name="errorButtonTextColor" format="color" />
         <attr name="errorButtonTextSize" format="dimension" />
@@ -111,5 +109,13 @@
             <enum name="start" value="8388611" />
             <enum name="top" value="48" />
         </attr>
+
+        <attr name="stateImageBottomMargin" format="dimension"/>
+        <attr name="SubTitleTextTopMargin" format="dimension"/>
+        <attr name="ButtonTopMargin" format="dimension"/>
+
+        <attr name="titleFontFamily" format="reference"/>
+        <attr name="subTitleFontFamily" format="reference"/>
+        <attr name="buttonFontFamily" format="reference"/>
     </declare-styleable>
 </resources>
