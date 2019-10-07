@@ -8,8 +8,11 @@
 
 Chameleon deals with the Status of RecyclerView.
 
-## What's New in 0.1.2? :tada:
-- [Bug] change `defaultState` -> `defaultChameleonState` (#14)
+## What's New in 0.2.0? :tada:
+- [Improvement] Modify MainActivity, ChameleonAdapter in Sample App [(#19)](https://github.com/sangcomz/Chameleon/pull/19) by [@LeeOhHyung](https://github.com/LeeOhHyung)
+- [Feature] Can set top margin and bottom margin [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
+- [Feature] Can set fontFamily [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
+- [Feature] Support All View [(#20)](https://github.com/sangcomz/Chameleon/pull/20)
 
 ## How to Use
 
@@ -20,7 +23,7 @@ Chameleon deals with the Status of RecyclerView.
     }
 
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.1.2'
+        compile 'com.github.sangcomz:Chameleon:v0.2.0'
     }
 ```
 ### Usage
@@ -132,6 +135,12 @@ chameleon.setStateChangeListener { newState, oldState -> Log.d("Main", "Was $old
 |       useErrorButton       | Change whether to use error view Button   |        false        |
 |      progressDrawable      | progress drawable setting                 |          -          |
 |       isLargeProgress      | Whether to use large progress             |        false        |
+|   stateImageBottomMargin   | state image bottom margin                 |         4dp         |
+|    subTitleTextTopMargin   | sub title top margin                      |         4dp         |
+|       buttonTopMargin      | button top margin                         |         16dp        |
+|      titleFontFamily       | title font family                         |    system default   |
+|     subTitleFontFamily     | sub title font family                     |    system default   |
+|      buttonFontFamily      | button font family                        |    system default   |
 |   defaultChameleonState    | Sets the initial state for Chameleon      |         NONE        |
 
 Note - A state of `NONE` means Chameleon won't do anything, and will just show the RecyclerView.
