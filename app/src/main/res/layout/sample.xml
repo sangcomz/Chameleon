@@ -23,7 +23,7 @@
         android:ellipsize="end"
         android:gravity="center"
         android:lines="1"
-        android:text="dfasdasdasdfasdfadsdfasdfasdfasdfasdfasdfasdf"
+        android:text="@string/long_empty"
         android:textSize="20sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
