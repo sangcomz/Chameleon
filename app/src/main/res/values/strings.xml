@@ -9,4 +9,7 @@
     <string name="long_sub_empty">Where is chameleon? Where is chameleon? Where is chameleon? Where is chameleon? Where is chameleon?</string>
     <string name="sub_error">The chameleon is dead.</string>
     <string name="display">Display State</string>
+    <string name="bt_empty">+Add Chameleon</string>
+    <string name="bt_error">Retry</string>
+    <string name="list_title">Chameleon List</string>
 </resources>

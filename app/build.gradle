@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
 android {
     signingConfigs {
         if (project.rootProject.file('release/sign.properties').exists()) {
@@ -55,6 +56,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

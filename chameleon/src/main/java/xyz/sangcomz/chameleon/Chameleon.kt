@@ -29,7 +29,7 @@ import xyz.sangcomz.chameleon.model.TextSettingBundle
 /**
  * Created by sangcomz on 12/02/2018.
  */
-open class Chameleon(context: Context?, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
+open class Chameleon(context: Context, attrs: AttributeSet?) : ConstraintLayout(context, attrs) {
 
     enum class STATE {
         LOADING,
