@@ -4,26 +4,20 @@
 
 <img src="/pic/logo.png" width = 20%> 
 
-[![](https://jitpack.io/v/sangcomz/chameleon.svg)](https://jitpack.io/#sangcomz/chameleon)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.sangcomz/chameleon)](https://search.maven.org/artifact/io.github.sangcomz/chameleon)
 
 Chameleon deals with the Status of RecyclerView.
 
-## What's New in 0.2.0? :tada:
-- [Improvement] Modify MainActivity, ChameleonAdapter in Sample App [(#19)](https://github.com/sangcomz/Chameleon/pull/19) by [@LeeOhHyung](https://github.com/LeeOhHyung)
-- [Feature] Can set top margin and bottom margin [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
-- [Feature] Can set fontFamily [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
-- [Feature] Support All View [(#20)](https://github.com/sangcomz/Chameleon/pull/20)
+## What's New in 1.0.0? :tada:
+- [Improvement] Move to MavenCentral
+- [Improvement] lib version update 
 
 ## How to Use
 
 ### Gradle
 ```groovy
-    repositories {
-        maven { url 'https://jitpack.io' }
-    }
-
     dependencies {
-        compile 'com.github.sangcomz:Chameleon:v0.2.0'
+        compile 'io.github.sangcomz:Chameleon:1.0.0'
     }
 ```
 ### Usage
