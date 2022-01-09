@@ -119,17 +119,11 @@ github {
     owner = 'sangcomz'
     repo = 'Chameleon'
     token = githubAccessTokens
-    tagName = 'v' + gradle.versionName
+    tagName = version
     targetCommitish = 'master'
     body = """## Release Note
-* [Improvement] Modify MainActivity, ChameleonAdapter in Sample App [(#19)](https://github.com/sangcomz/Chameleon/pull/19) by [@LeeOhHyung](https://github.com/LeeOhHyung)
-* [Feature] Can set top margin and bottom margin [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
-* [Feature] Can set fontFamily [(#18)](https://github.com/sangcomz/Chameleon/pull/18)
-* [Feature] Support All View [(#20)](https://github.com/sangcomz/Chameleon/pull/20)"""
-    name = 'r' + gradle.versionName
-    assets = [
-            'app/build/outputs/apk/debug/chameleon-debug-' + gradle.versionName + '.apk',
-            'app/build/outputs/apk/release/chameleon-release-' + gradle.versionName + '.apk',
-            'app/build/outputs/mapping/prod/release/mapping.txt'
-    ]
+* [Improvement] Move to MavenCentral
+* [Improvement] lib version update
+"""
+    name = version
 }
