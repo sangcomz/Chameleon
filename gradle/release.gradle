@@ -1,5 +1,6 @@
 apply plugin: "maven-publish"
 apply plugin: "signing"
+apply plugin: "io.github.sabujak-sabujak"
 
 if (project.rootProject.file('local.properties').isFile()) {
     Properties props = new Properties()
@@ -115,7 +116,7 @@ afterEvaluate {
     }
 }
 
-github {
+githubRelease {
     owner = 'sangcomz'
     repo = 'Chameleon'
     token = githubAccessTokens
