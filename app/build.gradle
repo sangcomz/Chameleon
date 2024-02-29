@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.triplet.play'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     signingConfigs {
@@ -18,16 +17,17 @@ android {
         }
     }
 
-    compileSdkVersion gradle.compileSdk
+    compileSdk gradle.compileSdk
+
     defaultConfig {
         applicationId "xyz.sangcomz.chameleonsample"
-        minSdkVersion gradle.minSdk
-        targetSdkVersion gradle.targetSdk
+        minSdk gradle.minSdk
+        targetSdk gradle.targetSdk
         versionName gradle.versionName
         versionCode gradle.versionCode
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -40,6 +40,17 @@ android {
         debug {
         }
     }
+    namespace 'xyz.sangcomz.chameleonsample'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def outputFile = output.outputFile
@@ -51,15 +62,16 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxJava_version"
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
     implementation project(':chameleon')
 }
 

@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_main.*
 import xyz.sangcomz.chameleon.Chameleon
 import xyz.sangcomz.chameleon.model.ButtonSettingBundle
 import xyz.sangcomz.chameleon.model.TextSettingBundle
@@ -18,37 +18,62 @@ import java.util.concurrent.TimeUnit
 class MainActivity : AppCompatActivity() {
 
     private val mChameleonAdapter: ChameleonAdapter by lazy { ChameleonAdapter() }
+    private val chameleon: Chameleon by lazy { findViewById(R.id.root) }
+    private val list: RecyclerView by lazy { findViewById(R.id.rv_main_list) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        root.apply {
-            setEmptyButtonClickListener { Toast.makeText(this@MainActivity, "Empty Button!", Toast.LENGTH_LONG).show() }
-            setErrorButtonClickListener { Toast.makeText(this@MainActivity, "Error Button!", Toast.LENGTH_LONG).show() }
+        chameleon.apply {
+            setEmptyButtonClickListener {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Empty Button!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            setErrorButtonClickListener {
+                Toast.makeText(
+                    this@MainActivity,
+                    "Error Button!",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
             setStateChangeListener { newState, oldState ->
-                Toast.makeText(this@MainActivity, "state was $oldState and now is $newState", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this@MainActivity,
+                    "state was $oldState and now is $newState",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
         setChameleonList()
     }
 
     private fun setChameleonList() {
-        rv_main_list.apply {
-            adapter = mChameleonAdapter
+        list.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(this@MainActivity)
-            addItemDecoration(DividerItemDecoration(this@MainActivity, DividerItemDecoration.VERTICAL))
+            adapter = mChameleonAdapter
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@MainActivity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
+
         getChameleons()
-                .delay(5000, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            mChameleonAdapter.setChameleonList(it)
-                            root.showState(Chameleon.STATE.CONTENT)
-                        },
-                        {
-                            root.showState(Chameleon.STATE.ERROR)
-                        })
+            .delay(5000, TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    mChameleonAdapter.setChameleonList(it)
+                    chameleon.showState(Chameleon.STATE.CONTENT)
+                },
+                {
+                    chameleon.showState(Chameleon.STATE.ERROR)
+                })
 
     }
 
@@ -60,26 +85,34 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_displayState -> {
-                Toast.makeText(this, "State is ${root.getState()}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "State is ${chameleon.getState()}", Toast.LENGTH_LONG).show()
             }
+
             R.id.menu_content -> {
-                root.showState(Chameleon.STATE.CONTENT)
+                chameleon.showState(Chameleon.STATE.CONTENT)
             }
+
             R.id.menu_loading -> {
-                root.showState(Chameleon.STATE.LOADING)
+                chameleon.showState(Chameleon.STATE.LOADING)
             }
+
             R.id.menu_empty -> {
-                root.showState(Chameleon.STATE.EMPTY,
-                        ContextCompat.getDrawable(this, R.drawable.ic_chameleon_red))
+                chameleon.showState(
+                    Chameleon.STATE.EMPTY,
+                    ContextCompat.getDrawable(this, R.drawable.ic_chameleon_red)
+                )
             }
+
             R.id.menu_error -> {
-                root.showState(Chameleon.STATE.ERROR,
-                        ContextCompat.getDrawable(this, R.drawable.ic_chameleon_blue),
-                        TextSettingBundle("Error Bundle Title"),
-                        TextSettingBundle("Error Bundle Content"),
-                        ButtonSettingBundle("Error Bundle Button", listener = {
-                            Toast.makeText(this, "Custom Action", Toast.LENGTH_SHORT).show()
-                        }))
+                chameleon.showState(
+                    Chameleon.STATE.ERROR,
+                    ContextCompat.getDrawable(this, R.drawable.ic_chameleon_blue),
+                    TextSettingBundle("Error Bundle Title"),
+                    TextSettingBundle("Error Bundle Content"),
+                    ButtonSettingBundle("Error Bundle Button", listener = {
+                        Toast.makeText(this, "Custom Action", Toast.LENGTH_SHORT).show()
+                    })
+                )
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,11 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.5.21'
-    ext.appcompat_version = '1.3.1'
-    ext.constraint_version = '2.1.2'
-    ext.rxJava_version = '2.1.12'
-    ext.rxAndroid_version = '2.1.0'
+    ext.kotlin_version = '1.9.21'
+    ext.appcompat_version = '1.6.1'
+    ext.constraint_version = '2.1.4'
+    ext.rxJava_version = '2.2.21'
+    ext.rxAndroid_version = '2.1.1'
 
     repositories {
         mavenCentral()
@@ -16,7 +16,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:8.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath "io.github.sabujak-sabujak:gradle-github-release-plugin:0.0.2"
